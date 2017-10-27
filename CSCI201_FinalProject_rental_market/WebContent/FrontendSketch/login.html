@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="login.css" type="text/css">
+</head>
+
+<body>
+
+  <article>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div id="intro" class="col-sm-6">
+        <h1>Login</h1>
+        <p>Brief introduction of our website</p>
+      </div>
+
+      <div id="login" class="col-sm-4">
+        <div id="loginFields">
+          <form class="loginform" method="post" onsubmit="return false;">
+            <input type="text" name="username" value="Username"><br>
+            <input type="text" name="password" value="Password">
+            <!-- <a href="#">Forget Password</a> -->
+            <br>
+            <div id="buttons">
+            <input type="button" name="loginbutton" value="Log in" onclick="market.html">
+            <input type="button" name="signupbutton" value="Sign up" onclick="signup.html">
+            </div>
+          </form>
+        <!-- </div> -->
+        <a id="guest" href="market.html">Browse as a guest</a>
+      <!-- </div> -->
+    </div>
+
+  </article>
+
+</body>
+
+</html>
