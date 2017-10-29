@@ -1,0 +1,50 @@
+body {
+    /*background-image: url("https://unsplash.it/1920/1020");*/
+    background-color: rgb(0, 47, 167);
+    /*color: white;*/ /* This was causing a weird text bug*/
+    /*opacity: 0.5;*/
+    /*vertical-align: center;*/
+}
+/* Temporary until we decide on a color scheme */
+span {
+  color: white;
+}
+h1 {
+  color: white;
+}
+/* Temporary until we decide on a color scheme */
+
+div[class="row"] {
+  position: absolute;
+  margin: auto;
+  top: 50%;
+  left: 45%;
+  /*width: 40%;*/
+  /*margin-left: auto;*/
+  width: 40%;
+  /*margin-right: auto;*/
+  margin-top: -150px;
+  margin-left: -300px;
+}
+
+
+.singleField {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 70%;
+}
+
+input[type="button"] {
+  width: 30%;
+}
+
+span {
+  width: 29%;
+  display: inline-block;
+}
+#signup {
+  text-align: center;
+}

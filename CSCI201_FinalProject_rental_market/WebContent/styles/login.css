@@ -1,0 +1,33 @@
+body {
+    background-image: url("https://unsplash.it/1920/1070");
+    /*vertical-align: center;*/
+}
+#intro {
+  color: white;
+}
+div[class="row"] {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -150px;
+}
+
+#loginFields {
+  width: 100%;
+}
+
+input {
+  width: 50%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+input[name="loginbutton"],
+input[name="signupbutton"] {
+  width: 25%;
+}
+
+#guest {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+}

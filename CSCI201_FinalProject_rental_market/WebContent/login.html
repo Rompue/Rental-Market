@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="styles/login.css" type="text/css">
+
+  <script type="text/javascript">
+
+    function validate() {
+      var username = document.getElementsByName("username")[0].value;
+      var password = document.getElementsByName("password")[0].value;
+
+      // Testing the validation
+      if (username == "a" && password == "a") {
+        console.log("Good username");
+        return true;
+      }
+      else {
+        console.log("Bad username")
+        return false;
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <article>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div id="intro" class="col-sm-6">
+        <h1>Login</h1>
+        <p>Brief introduction of our website</p>
+      </div>
+
+      <div id="login" class="col-sm-4">
+        <div id="loginFields">
+          <h3 id="title">Rental Marketplace</h3>
+          <form class="loginform" method="post">
+            <input type="text" name="username" value=""><br>
+            <input type="text" name="password" value="">
+            <!-- <a href="#">Forget Password</a> -->
+            <br>
+            <div id="buttons">
+              <input type="submit" id="loginButton" name="loginbutton" value="Log in" onclick="return validate();">
+              <input type="button" id="signUpButton" name="signupbutton" value="Sign up">
+              <script>
+                document.getElementById("signUpButton").onclick = function () {
+                  location.href = "signup.html";
+                };
+              </script>
+            </div>
+          </form>
+        <!-- </div> -->
+        <a id="guest" href="market.html">Browse as a guest</a>
+      <!-- </div> -->
+    </div>
+
+  </article>
+
+</body>
+
+</html>

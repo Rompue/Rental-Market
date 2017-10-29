@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="styles/signup.css" type="text/css">
+  <script>
+    function validate() {
+      var username = document.getElementsByName("username")[0].value;
+      var password = document.getElementsByName("password")[0].value;
+      var firstname = document.getElementsByName("firstname")[0].value;
+      var lastname = document.getElementsByName("lastname")[0].value;
+      var email = document.getElementsByName("email")[0].value;
+
+      // Testing the validation
+      if (username != "" && password != "" && firstname != "" && lastname != ""
+          && email != "")
+      {
+        console.log("Everything looks good");
+        return false;
+      }
+      else {
+        console.log("Everything does not look good");
+        return false;
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <article>
+    <div class="row">
+      <div id="signup" class="col-sm-12">
+        <h1>Sign Up</h1>
+        <div id="signupFields">
+          <form class="signupform" method="post" onsubmit="return validate();">
+            <div class="singleField">
+              <span>User Name</span>
+              <input type="text" name="username" value="">
+            </div>
+            <div class="singleField">
+              <span>Password</span>
+              <input type="text" name="password" value="">
+            </div>
+            <div class="singleField">
+              <span>First Name</span>
+              <input type="text" name="firstname" value="">
+            </div>
+            <div class="singleField">
+              <span>Last Name</span>
+              <input type="text" name="lastname" value="">
+            </div>
+            <div class="singleField">
+              <span>Email</span>
+              <input type="text" name="email" value="">
+            </div>
+            <div class="singleField">
+              <span>possible error message</span>
+            </div>
+            <input type="submit" name="signupbutton" value="Sign up">
+          </form>
+        </div>
+    </div>
+
+  </article>
+
+</body>
+
+</html>
