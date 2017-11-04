@@ -3,7 +3,7 @@
 ## How to add to project
 Add the **database** package to the **src** folder in the workspace.<br />
 Add the **RM_Database.jsp** file to the **WebContent** folder in the workspace.<br />
-**Ensure that the mysql-connector-java-5.1.40-bin.jar file is added correctly to the workspace.**
+**Ensure that the mysql-connector-java-5.1.40-bin.jar file is added correctly to the workspace.**<br />
 Add the **createRentalMarketplaceDatabase.sql** script to MySQLWorkbench and run it once to create the database. Note: the database assumes the password is CSCI-201.
 
 ## Current functionality
