@@ -17,11 +17,11 @@ CREATE TABLE Person (
     firstName VARCHAR(100) NOT NULL,
     lastName VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
+    passcode VARCHAR(100) NOT NULL,
     positiveRatings INT(100) NOT NULL,
     negativeRatings INT(100) NOT NULL,
     totalRatings INT(100) NOT NULL,
-    imageID INT(11) NOT NULL,
+    imageID INT(11),
     FOREIGN KEY fk1(imageID) REFERENCES ProfileImage(imageID)
 );
 
