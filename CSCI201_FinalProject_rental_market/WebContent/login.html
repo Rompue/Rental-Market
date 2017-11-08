@@ -14,20 +14,15 @@
   <link rel="stylesheet" href="styles/login.css" type="text/css">
 
   <script type="text/javascript">
-
     function validate() {
-      var username = document.getElementsByName("username")[0].value;
-      var password = document.getElementsByName("password")[0].value;
-
-      // Testing the validation
-      if (username == "a" && password == "a") {
-        console.log("Good username");
-        return true;
-      }
-      else {
-        console.log("Bad username")
-        return false;
-      }
+    		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "validate.jsp?username=" + document.loginform.username.value + "&password=" + document.loginform.password.value, false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("errorMessage").innerHTML = xhttp.responseText;
+			return false;
+		}
+		return true
     }
   </script>
 </head>
@@ -45,10 +40,10 @@
       <div id="login" class="col-sm-4">
         <div id="loginFields">
           <h3 id="title">Rental Marketplace</h3>
-          <form class="loginform" method="post">
+          <form name = "loginform" class="loginform" method="post" action = "market.html" onsubmit = "return validate();">
             <input type="text" name="username" value=""><br>
-            <input type="text" name="password" value="">
-            <!-- <a href="#">Forget Password</a> -->
+            <input type="text" name="password" value=""><br>
+            <div id = "errorMessage"></div>
             <br>
             <div id="buttons">
               <input type="submit" id="loginButton" name="loginbutton" value="Log in" onclick="return validate();">
