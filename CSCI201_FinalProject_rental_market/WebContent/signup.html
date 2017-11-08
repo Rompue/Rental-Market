@@ -14,24 +14,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="styles/signup.css" type="text/css">
   <script>
-    function validate() {
-      var username = document.getElementsByName("username")[0].value;
-      var password = document.getElementsByName("password")[0].value;
-      var firstname = document.getElementsByName("firstname")[0].value;
-      var lastname = document.getElementsByName("lastname")[0].value;
-      var email = document.getElementsByName("email")[0].value;
-
-      // Testing the validation
-      if (username != "" && password != "" && firstname != "" && lastname != ""
-          && email != "")
-      {
-        console.log("Everything looks good");
-        return false;
-      }
-      else {
-        console.log("Everything does not look good");
-        return false;
-      }
+    function createUser() {
+    		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "createUser.jsp?username=" + document.signupform.email.value + "&password=" + document.signupform.password.value + "&firstname=" + document.signupform.firstname.value + "&lastname=" + document.signupform.lastname.value, false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("errorMessage").innerHTML = xhttp.responseText;
+			return false;
+		}
+		return true
     }
   </script>
 </head>
@@ -43,10 +34,10 @@
       <div id="signup" class="col-sm-12">
         <h1>Sign Up</h1>
         <div id="signupFields">
-          <form class="signupform" method="post" onsubmit="return validate();">
+          <form name = "signupform" class="signupform" method="post" action = "login.html" onsubmit="return createUser();">
             <div class="singleField">
-              <span>User Name</span>
-              <input type="text" name="username" value="">
+              <span>Email</span>
+              <input type="text" name="email" value="">
             </div>
             <div class="singleField">
               <span>Password</span>
@@ -60,13 +51,7 @@
               <span>Last Name</span>
               <input type="text" name="lastname" value="">
             </div>
-            <div class="singleField">
-              <span>Email</span>
-              <input type="text" name="email" value="">
-            </div>
-            <div class="singleField">
-              <span>possible error message</span>
-            </div>
+            <div id = "errorMessage"></div>
             <input type="submit" name="signupbutton" value="Sign up">
           </form>
         </div>
