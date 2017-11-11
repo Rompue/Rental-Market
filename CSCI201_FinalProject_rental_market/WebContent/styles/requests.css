@@ -1,5 +1,4 @@
 /* This is part of the shell */
-/*
 .profileimage {
 	margin-left: 40px;
 	padding-top: 15px;
@@ -10,4 +9,18 @@
 #buttons {
   width: 100%;
 }
-*/
+#col2 {
+  /*background: red;*/
+}
+
+#col3 {
+  /*background: green;*/
+}
+
+#col6 {
+  background: lightblue;
+}
+
+#buttons {
+  width: 100%;
+}

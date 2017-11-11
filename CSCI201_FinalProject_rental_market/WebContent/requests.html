@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Profile Page</title>
+  <title>Login</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -12,13 +12,8 @@
 
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="styles/profile.css" type="text/css">
-  <link rel="stylesheet" type="text/css" href="styles/shell.css">  
-  <style media="screen">
-    /*#comments {
-      width: 70%;
-    }*/
-  </style>
+  <link rel="stylesheet" href="styles/requests.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="styles/shell.css">
 </head>
 
 <body>
@@ -34,83 +29,74 @@
       </div> -->
       <h3 class="username">Username</h3>
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#" class="shellLink">Profile</a></li>
+        <li><a href="#" class="shellLink">Profile</a></li>
         <li><a href="#" class="shellLink">Market</a></li>
-        <li><a href="#" class="shellLink">Requests</a></li>
+        <li class="active"><a href="#" class="shellLink">Requests</a></li>
       </ul><br>
       <button type="button" class="btn btn-default btn-block">New Request</button>
+
     </div>
 
-    <!-- Dynamically create these requests -->
     <div class="col-sm-3" id="col3">
-      <div class="well well-sm">Marketplace</div>
-      <div class="panel panel-default">
+
+      <div class="well well-sm">Requests</div>
+      <div class="panel panel-danger">
         <div class="panel-heading">
-          <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>Username</span>
-          <span>Created Date</span>
+          <!-- <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px"> -->
+          <span>[Pending]</span>
+          <span>Created at 10/24</span>
         </div>
         <div class="panel-body">
           <p>Item requested</p>
-          <p>Description of the item.</p>
+          <p>Discription of the item.</p>
           <p>$2 need before 10/28 return before 10/31</p>
         </div>
       </div>
-      <div class="panel panel-default">
+      <div class="panel panel-warning">
         <div class="panel-heading">
           <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>Username</span>
-          <span>Created Date</span>
+          <span>[Ongoing] [lent to] Username</span>
+          <span>Created at 10/23</span>
         </div>
         <div class="panel-body">
           <p>Item requested</p>
-          <p>Description of the item.</p>
-          <p>$2 need before 10/28 return before 10/31</p>
+          <p>Discription of the item.</p>
+          <p>$1 lent at 10/24 return before 10/31</p>
         </div>
       </div>
-      <div class="panel panel-default">
+      <div class="panel panel-success">
         <div class="panel-heading">
           <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>Username</span>
-          <span>Created Date</span>
+          <span>[Completed] [lent to] Username</span>
+          <span>Created at 10/21</span>
         </div>
         <div class="panel-body">
           <p>Item requested</p>
-          <p>Description of the item.</p>
-          <p>$2 need before 10/28 return before 10/31</p>
+          <p>Discription of the item.</p>
+          <p>$2 lent at 10/22 returned at 10/26</p>
+          <p class="alert alert-success">Positive rating!</p>
+        </div>
+      </div>
+
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+          <span>[Completed] [borrowed from] Username</span>
+          <span>Created at 10/20</span>
+        </div>
+        <div class="panel-body">
+          <p>Item requested</p>
+          <p>Discription of the item.</p>
+          <p>$2 borrowed at 10/21 returned at 10/25</p>
+          <p class="alert alert-danger">Negative rating.</p>
         </div>
       </div>
     </div>
     <div class="col-sm-7" id="col7">
-      <div class="profileimage">
-        <img src="https://unsplash.it/100/100" class="img-circle" alt="Profile image" width="100px" height="100px">
-        <button type="button" class="btn">Change Picture (possible)</button>
-      </div>
-      <h3>First Name Last Name <small>@username</small></h3>
-      <h4>90% Positive Rating</h4><hr>
-      <div class="well well-sm" id="comments">Comments</div>
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>[positive] Username</span>
-          <span>Created Date</span>
-        </div>
-        <div class="panel-body">
-          <p>comment</p>
-        </div>
-      </div>
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>[negative] Username</span>
-          <span>Created Date</span>
-        </div>
-        <div class="panel-body">
-          <p>comment</p>
-        </div>
-      </div>
+
     </div>
   </div>
+
 </body>
 
 </html>
