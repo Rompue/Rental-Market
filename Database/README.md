@@ -13,6 +13,6 @@ To access the database in a jsp file, put the following at the top:
 You **must** initialize the database first by calling ```RMDatabase.initializeDatabase()``` before calling other methods, otherwise it will crash with a null pointer exception. You shouldn't need to call it again after that (on other pages, for example) but calling it again won't do anything so feel free to call it as many times as you want.
 
 ## Current functionality
-Create users with ```RMDatabase.createUser(firstName, lastName, email, password)```
-Authenticate users (log in) with ```RMDatabase.authenticateUser(email, password```
-Get all marketplace posts with ```RMDatabase.getPosts()```
+Create users with ```RMDatabase.createUser(firstName, lastName, email, password)```<br />
+Authenticate users (log in) with ```RMDatabase.authenticateUser(email, password```<br />
+Get all marketplace posts with ```RMDatabase.getPosts()```<br />
