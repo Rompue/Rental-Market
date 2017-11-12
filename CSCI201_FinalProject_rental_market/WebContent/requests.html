@@ -12,6 +12,7 @@
 
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="styles/requests.css" type="text/css">
   <link rel="stylesheet" type="text/css" href="styles/shell.css">
 </head>
@@ -20,38 +21,40 @@
   <div class="row">
     <div class="col-sm-2" id="col2">
       <div class="profileimage">
-        <img src="https://unsplash.it/100/100" class="img-circle" alt="Profile image" width="100px" height="100px">
+        <!-- TODO src of the image should be get from the datebase -->
+        <img id="ProfileImage" src="https://unsplash.it/100/100" class="img-circle" alt="Profile image" width="100px" height="100px">
       </div>
-      <!-- <div class="btn-group-vertical" id="buttons">
-        <button type="button" class="btn btn-default">Profile</button>
-        <button type="button" class="btn btn-default">Market</button>
-        <button type="button" class="btn btn-default">Requests</button>
-      </div> -->
-      <h3 class="username">Username</h3>
+
+
+
+      <h3 id="MyUsername" class="username">Username</h3><!-- TODO username should be get from the datebase -->
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#" class="shellLink">Profile</a></li>
-        <li><a href="#" class="shellLink">Market</a></li>
+        <li><a href="#" class="shellLink">Profile</a></li><!-- TODO modify href, this should direct to the profile page -->
+        <li><a href="#" class="shellLink">Market</a></li><!-- TODO modify href, this should direct to the market page -->
         <li class="active"><a href="#" class="shellLink">Requests</a></li>
       </ul><br>
-      <button type="button" class="btn btn-default btn-block">New Request</button>
+      <button type="button" class="btn btn-default btn-block" onclick="">New Request</button><!-- TODO add onclick in js to open a new request page -->
 
     </div>
 
     <div class="col-sm-3" id="col3">
 
       <div class="well well-sm">Requests</div>
-      <div class="panel panel-danger">
+
+      <div class="panel panel-danger"> <!-- TODO modify class, matching the status of the request -->
         <div class="panel-heading">
           <!-- <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px"> -->
-          <span>[Pending]</span>
-          <span>Created at 10/24</span>
+          <span>[Pending]</span><!-- TODO modify text, matching the status and the user involved -->
+          <span>Created at 10/24</span> <!-- TODO modify text, matching the created date -->
         </div>
         <div class="panel-body">
-          <p>Item requested</p>
+          <p>Item requested</p><!-- TODO modify text, matching the details of the request -->
           <p>Discription of the item.</p>
           <p>$2 need before 10/28 return before 10/31</p>
         </div>
       </div>
+
+      <!-- These are more examples -->
       <div class="panel panel-warning">
         <div class="panel-heading">
           <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
@@ -93,7 +96,103 @@
       </div>
     </div>
     <div class="col-sm-7" id="col7">
+      <!-- TODO
+      This is the detailed info (with chats) of the selected request
+      All the text should be dynamically filled
+      And the specific fields and design should also be depended on the status of the request
+      When the requests page is loaded the first time, the one displayed here should be the most recent one
+      -->
+      <div class="panel panel-danger">
+            <div class="panel-heading">
+              <span>[Pending]</span>
+              <span>Created at 10/24</span>
+            </div>
+            <div class="panel-body">
+              <p>Item requested</p>
+              <p>Discription of the item.</p>
+              <p>$2 need before 10/28 return before 10/31</p>
+              <button type="button" class="btn">Delete Request</button><hr>
 
+              <div class="panel">
+                    <div class="panel-heading">
+                      <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+                      <span>Chatting with Username</span>
+                    </div>
+                    <div class="panel-body">
+                      <span class="well well-sm message">
+                        <span>Hi, I'm Kun.</span>
+                      </span><br>
+                      <span class="well well-sm message">
+                        <span>I can lend my TI84 to you tomorrow.</span>
+                      </span>
+                      <div class="input-group">
+                        <input type="text" class="form-control">
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" type="submit">Send</button>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+              <div class="panel">
+                    <div class="panel-heading">
+                      <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+                      <span>Chatting with another user</span>
+                    </div>
+                    <div class="panel-body">
+                      <span class="well well-sm message">
+                        <span>Hi, I'm another Kun.</span>
+                      </span><br>
+                      <span class="well well-sm message">
+                        <span>I can lend my TI84 to you tomorrow.</span>
+                      </span>
+                      <div class="input-group">
+                        <input type="text" class="form-control">
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" type="submit">Send</button>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <!-- <div class="panel panel-warning">
+                  <div class="panel-heading">
+                    <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+                    <span>[Ongoing] [lent to] Username</span>
+                    <span>Created at 10/24</span>
+                  </div>
+                  <div class="panel-body">
+                    <p>Item requested</p>
+                    <p>Discription of the item.</p>
+                    <p>$2 need before 10/28 return before 10/31</p>
+                    <button type="button" class="btn btn-success">Complete with positive rating.</button>
+                    <button type="button" class="btn btn-danger">Complete with nagative rating.</button>
+                    <hr>
+
+                    <div class="panel">
+                          <div class="panel-heading">
+                            <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+                            <span>Chatting with Username</span>
+                          </div>
+                          <div class="panel-body">
+                            <span class="well well-sm message">
+                              <span>Hi, I'm Kun.</span>
+                            </span><br>
+                            <span class="well well-sm message">
+                              <span>I can lend my TI84 to you tomorrow.</span>
+                            </span>
+                            <div class="input-group">
+                              <input type="text" class="form-control">
+                              <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">Send</button>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                  </div> -->
+
+
+      </div>
     </div>
   </div>
 
