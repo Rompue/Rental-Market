@@ -1,3 +1,32 @@
 body {
-  background-image: url("https://unsplash.it/1920/1020");
+	background-image: url("https://unsplash.it/1920/1020");
+}
+h1 {
+	margin:0;
+    padding:0;	
+}
+#requestDes {
+	font-size: 15px;
+}
+input, label {
+	display: block;
+}
+textarea {
+	display: block;
+	resize: none;
+}
+.requestInfo {
+	width: 318px;
+}
+.dateInfo {
+	width: 155px;
+}
+.description {
+	width: 364px;
+}
+#itemDescript {
+	height: 100px;
+}
+#submitButton {
+	width: 400px;
 }

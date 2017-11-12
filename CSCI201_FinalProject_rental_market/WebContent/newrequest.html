@@ -31,36 +31,46 @@
     <div class="col-sm-3">
     </div>
     <div class="col-sm-6">
-      <h1>New Request</h1><br>
+      <h1>New Request</h1>
+      <p id="requestDes"><b>Please tell us descriptions of the request</b></p><br/>
+
       <form class="requestForm">
-        <div class="input-group">
-          <span class="input-group-addon">Specify a user to send the request to (optional)</span>
+        <div class="input-group requestInfo">
+          <!--<span class="input-group-addon">Specify a user to send the request to (optional)</span>-->
+          <label>Which user you would like to send a request to: </label>
           <input id="username" type="text" class="form-control" name="username" placeholder="Username">
         </div><br>
 
-        <div class="input-group">
-          <span class="input-group-addon">Item Name</span>
+        <div class="input-group requestInfo">
+          <!--<span class="input-group-addon">Item Name</span>-->
+          <label>What is the item you want to borrow: </label>
           <input id="itemname" type="text" class="form-control" name="itemname">
         </div><br>
 
-        <div class="input-group">
-          <span class="input-group-addon">Item Description</span>
-          <input id="itemname" type="text" class="form-control" name="itemdescript">
-        </div><br>
-
-        <div class="input-group">
-          <span class="input-group-addon">Money you are willing to pay $</span>
+        <div class="input-group requestInfo">
+          <!--<span class="input-group-addon">Money you are willing to pay $</span>-->
+          <label>How much are you willing to pay: </label>
           <input id="money" type="text" class="form-control" name="money">
         </div><br>
 
-        <div class="input-group">
-          <span class="input-group-addon">Need by</span>
+        <div class="input-group dateInfo">
+          <!--<span class="input-group-addon">Need by</span>-->
+          <label>Need by: </label>
           <input id="needby" type="date" class="form-control" name="needby" min ="1900-01-01" max="3000-01-01">
         </div><br>
 
-        <div class="input-group">
-          <span class="input-group-addon">Return by</span>
+        <div class="input-group dateInfo">
+          <!--<span class="input-group-addon">Return by</span>-->
+          <label>Return by: </label>
           <input id="returnby" type="date" class="form-control" name="returnby" min ="1900-01-01" max="3000-01-01">
+        </div><br>
+
+        <div class="input-group description">
+          <!--<span class="input-group-addon">Item Description</span>-->
+          <label>Give a brief description about the item: </label>
+
+          <!--<input id="itemname" type="text" class="form-control" name="itemdescript">-->
+          <textarea id="itemDescript" class="form-control" name="itemdescript"></textarea>
         </div><br>
 
         <!-- Error messages -->
@@ -69,7 +79,7 @@
         </div>
         <!-- Error messages -->
 
-        <div class="btn-group  btn-group-justified">
+        <div class="btn-group  btn-group-justified" id="submitButton">
           <div class="btn-group">
             <input type="submit" name="" value="Submit" class="btn btn-primary">
           </div>
