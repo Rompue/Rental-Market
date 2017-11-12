@@ -14,5 +14,5 @@ You **must** initialize the database first by calling ```RMDatabase.initializeDa
 
 ## Current functionality
 Create users with ```RMDatabase.createUser(firstName, lastName, email, password)```<br />
-Authenticate users (log in) with ```RMDatabase.authenticateUser(email, password```<br />
+Authenticate users (log in) with ```RMDatabase.authenticateUser(email, password)```<br />
 Get all marketplace posts with ```RMDatabase.getPosts()```<br />
