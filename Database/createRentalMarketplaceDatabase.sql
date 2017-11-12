@@ -5,7 +5,7 @@ USE RentalMarketplace;
 
 CREATE TABLE ProfileImage (
 	imageID INT(11) PRIMARY KEY AUTO_INCREMENT,
-    imageData LONGBLOB NOT NULL
+    imageLink VARCHAR(1000) NOT NULL
 );
 
 CREATE TABLE Chat (
@@ -21,8 +21,7 @@ CREATE TABLE Person (
     positiveRatings INT(100) NOT NULL,
     negativeRatings INT(100) NOT NULL,
     totalRatings INT(100) NOT NULL,
-    imageID INT(11),
-    FOREIGN KEY fk1(imageID) REFERENCES ProfileImage(imageID)
+    image VARCHAR(255) DEFAULT 'https://dl.dropboxusercontent.com/s/qomzwb40imxwkap/DefaultProfile.png?dl=0'
 );
 
 CREATE TABLE Post (

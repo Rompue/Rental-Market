@@ -2,20 +2,28 @@ package database;
 
 public class RMUser {
 	
+	private int userID;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private int positiveRatings;
 	private int negativeRatings;
 	private int totalRatings;
+	private String image;
 	
-	public RMUser(String firstName, String lastName, String email, int positiveRatings, int negativeRatings, int totalRatings) {
+	public RMUser(int userID, String firstName, String lastName, String email, int positiveRatings, int negativeRatings, int totalRatings, String image) {
+		this.userID = userID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.positiveRatings = positiveRatings;
 		this.negativeRatings = negativeRatings;
 		this.totalRatings = totalRatings;
+		this.image = image;
+	}
+	
+	public int getUserID() {
+		return userID;
 	}
 	
 	public String getFirstName() {
@@ -44,6 +52,10 @@ public class RMUser {
 	
 	public String getFullName() {
 		return getFirstName() + " " + getLastName();
+	}
+	
+	public String getImage() {
+		return image;
 	}
 	
 }
