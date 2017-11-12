@@ -6,12 +6,30 @@
   <title>Login</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style media="screen">
+    .middlerow:hover {
+        border-left: 1px;
+      border-right: 1px;
+      border-top: 1px;
+      border-bottom: 1px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    }
+  </style>
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+    document.getElementsByClassName('middlerow')
+      .addEventListener('click', function (event) {
+          // do something
+      });
+  </script>
 
   <link rel="stylesheet" href="styles/requests.css" type="text/css">
   <link rel="stylesheet" type="text/css" href="styles/shell.css">
@@ -41,7 +59,7 @@
 
       <div class="well well-sm">Requests</div>
 
-      <div class="panel panel-danger"> <!-- TODO modify class, matching the status of the request -->
+      <div class="panel panel-danger middlerow"> <!-- TODO modify class, matching the status of the request -->
         <div class="panel-heading">
           <!-- <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px"> -->
           <span>[Pending]</span><!-- TODO modify text, matching the status and the user involved -->
@@ -55,7 +73,7 @@
       </div>
 
       <!-- These are more examples -->
-      <div class="panel panel-warning">
+      <div class="panel panel-warning middlerow">
         <div class="panel-heading">
           <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
           <span>[Ongoing] [lent to] Username</span>
@@ -67,7 +85,7 @@
           <p>$1 lent at 10/24 return before 10/31</p>
         </div>
       </div>
-      <div class="panel panel-success">
+      <div class="panel panel-success middlerow">
         <div class="panel-heading">
           <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
           <span>[Completed] [lent to] Username</span>
@@ -81,7 +99,7 @@
         </div>
       </div>
 
-      <div class="panel panel-success">
+      <div class="panel panel-success middlerow">
         <div class="panel-heading">
           <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
           <span>[Completed] [borrowed from] Username</span>
