@@ -14,21 +14,59 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="styles/market.css" type="text/css">
   <link rel="stylesheet" type="text/css" href="styles/shell.css">
+  <script>
+  	function populate() {
+    		addImage();
+    		addUserName();
+    		addPostList();
+    }
+    function addImage() {
+    		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "addImage.jsp", false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("profileimage").innerHTML = xhttp.responseText;
+		}
+    }
+    function addUserName() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "addUsername.jsp", false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("username").innerHTML = xhttp.responseText;
+		}
+	}
+    function addPostList() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "marketPostList.jsp", false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("postList").innerHTML = xhttp.responseText;
+		}
+	}
+    function showDetail(div) {
+    		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "marketPostDetail.jsp?divID=" + div.id, false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("col7").innerHTML = xhttp.responseText;
+		}
+    }
+   </script>
 </head>
 
-<body>
-
+<body onload = "populate()">
 <div class="row">
   <div class="col-sm-2" id="col2">
-    <div class="profileimage">
-      <img src="https://unsplash.it/100/100" class="img-circle" alt="Profile image" width="100px" height="100px">
+    <div id = "profileimage" class="profileimage">
     </div>
     <!-- <div class="btn-group-vertical" id="buttons">
       <button type="button" class="btn btn-default">Profile</button>
       <button type="button" class="btn btn-default">Market</button>
       <button type="button" class="btn btn-default">Requests</button>
     </div> -->
-    <h3 class="username">Username</h3>
+    <div id = "username">
+    </div>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#" class="shellLink">Profile</a></li>
       <li class="active"><a href="#" class="shellLink">Market</a></li>
@@ -40,72 +78,11 @@
   <!-- Dynamically create these cells -->
   <div class="col-sm-3" id="col3">
     <div class="well well-sm">Marketplace</div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-        <span>Username</span>
-        <span>Created Date</span>
-      </div>
-      <div class="panel-body">
-        <p>Item requested</p>
-        <p>Description of the item.</p>
-        <p>$2 need before 10/28 return before 10/31</p>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-        <span>Username</span>
-        <span>Created Date</span>
-      </div>
-      <div class="panel-body">
-        <p>Item requested</p>
-        <p>Description of the item.</p>
-        <p>$2 need before 10/28 return before 10/31</p>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-        <span>Username</span>
-        <span>Created Date</span>
-      </div>
-      <div class="panel-body">
-        <p>Item requested</p>
-        <p>Description of the item.</p>
-        <p>$2 need before 10/28 return before 10/31</p>
-      </div>
+    <div id = "postList">
     </div>
   </div>
   <div class="col-sm-7" id="col7">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-        <span>Username</span>
-        <span>Created at 10/24</span>
-      </div>
-      <div class="panel-body">
-        <p>Item requested</p>
-        <p>Description of the item.</p>
-        <p>$2 need before 10/28 return before 10/31</p>
-        <hr>
-
-        <div class="panel">
-          <div class="panel-heading">
-            <!-- <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px"> -->
-            <span>Chatting with the user</span>
-          </div>
-          <div class="panel-body">
-            <div class="input-group">
-              <input type="text" class="form-control">
-              <div class="input-group-btn">
-                <button class="btn btn-default" type="submit">Send</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </div>
 </body>
 
