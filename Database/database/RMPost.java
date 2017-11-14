@@ -9,18 +9,20 @@ public class RMPost {
 	private String postDescription;
 	private String borrowAmount;
 	private Date postDate;
+	private Date dueDate;
 	private boolean completed;
 	private boolean deleted;
 	
 	private int userID;
 	private int chatID;
 	
-	public RMPost(int postID, String itemName, String postDescription, String borrowAmount, Date postDate, boolean completed, boolean deleted, int userID, int chatID) {
+	public RMPost(int postID, String itemName, String postDescription, String borrowAmount, Date postDate, Date dueDate, boolean completed, boolean deleted, int userID, int chatID) {
 		this.postID = postID;
 		this.itemName = itemName;
 		this.postDescription = postDescription;
 		this.borrowAmount = borrowAmount;
 		this.postDate = postDate;
+		this.dueDate = dueDate;
 		this.completed = completed;
 		this.deleted = deleted;
 		this.userID = userID;
@@ -45,6 +47,10 @@ public class RMPost {
 	
 	public Date getPostDate() {
 		return postDate;
+	}
+	
+	public Date getDueDate() {
+		return dueDate;
 	}
 	
 	public boolean getCompleted() {

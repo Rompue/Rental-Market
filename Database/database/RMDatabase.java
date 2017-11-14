@@ -191,13 +191,14 @@ public class RMDatabase {
 				String postDescription = rs.getString("postDescription");
 				String borrowAmount = rs.getString("borrowAmount");
 				Date postDate = rs.getDate("postDate");
+				Date dueDate = rs.getDate("dueDate");
 				boolean completed = rs.getBoolean("completed");
 				boolean deleted = rs.getBoolean("deleted");
 				int userID = rs.getInt("userID");
 				int chatID = rs.getInt("chatID");
 				
 				// Adds to list of posts
-				posts.add(new RMPost(postID, itemName, postDescription, borrowAmount, postDate, completed, deleted, userID, chatID));
+				posts.add(new RMPost(postID, itemName, postDescription, borrowAmount, postDate, dueDate, completed, deleted, userID, chatID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
@@ -232,6 +233,7 @@ public class RMDatabase {
 				int requestID = rs.getInt("requestID");
 				String itemName = rs.getString("itemName");
 				Date requestDate = rs.getDate("requestDate");
+				Date dueDate = rs.getDate("dueDate");
 				boolean completed = rs.getBoolean("completed");
 				boolean deleted = rs.getBoolean("deleted");
 				int rating = rs.getInt("rating");
@@ -240,7 +242,7 @@ public class RMDatabase {
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, requestDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
+				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
@@ -275,6 +277,7 @@ public class RMDatabase {
 				int requestID = rs.getInt("requestID");
 				String itemName = rs.getString("itemName");
 				Date requestDate = rs.getDate("requestDate");
+				Date dueDate = rs.getDate("dueDate");
 				boolean completed = rs.getBoolean("completed");
 				boolean deleted = rs.getBoolean("deleted");
 				int rating = rs.getInt("rating");
@@ -283,7 +286,7 @@ public class RMDatabase {
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, requestDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
+				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());

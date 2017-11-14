@@ -7,6 +7,7 @@ public class RMRequest {
 	private int requestID;
 	private String itemName;
 	private Date requestDate;
+	private Date dueDate;
 	private boolean completed;
 	private boolean deleted;
 	private int rating;
@@ -16,10 +17,11 @@ public class RMRequest {
 	private int chatID;
 	private int postID;
 	
-	public RMRequest(int requestID, String itemName, Date requestDate, boolean completed, boolean deleted, int rating, int borrowerID, int lenderID, int chatID, int postID) {
+	public RMRequest(int requestID, String itemName, Date requestDate, Date dueDate, boolean completed, boolean deleted, int rating, int borrowerID, int lenderID, int chatID, int postID) {
 		this.requestID = requestID;
 		this.itemName = itemName;
 		this.requestDate = requestDate;
+		this.dueDate = dueDate;
 		this.completed = completed;
 		this.deleted = deleted;
 		this.rating = rating;
@@ -39,6 +41,10 @@ public class RMRequest {
 	
 	public Date getRequestDate() {
 		return requestDate;
+	}
+	
+	public Date getDueDate() {
+		return dueDate;
 	}
 	
 	public boolean getCompleted() {
