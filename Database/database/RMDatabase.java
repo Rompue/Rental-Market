@@ -121,7 +121,48 @@ public class RMDatabase {
 			try {
 				if (rs != null) rs.close();
 				if (ps != null) ps.close();
-				if (conn != null) conn.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+		
+		return user;
+	}
+	
+	public static RMUser getUserForID(int id) {
+		// Initial null SQL variables
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		RMUser user = null;
+		
+		// Attempt to log in
+		try {
+			ps = conn.prepareStatement("SELECT * FROM Person WHERE userID=?;");
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) { // Found a user, now check if the password matches
+				int userID = rs.getInt("userID");
+				String firstName = rs.getString("firstName");
+				String lastName = rs.getString("lastName");
+				String email = rs.getString("email");
+				int positiveRatings = rs.getInt("positiveRatings");
+				int negativeRatings = rs.getInt("negativeRatings");
+				int totalRatings = rs.getInt("totalRatings");
+				String image = rs.getString("image");
+				
+				user = new RMUser(userID, firstName, lastName, email, positiveRatings, negativeRatings, totalRatings, image);
+			}
+			else { // No user with this id exists
+				return null;
+			}
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
 			} catch (SQLException sqle) {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());
 			}
@@ -140,7 +181,7 @@ public class RMDatabase {
 		
 		// Get all posts
 		try {
-			ps = conn.prepareStatement("SELECT * FROM Person WHERE email=?;");
+			ps = conn.prepareStatement("SELECT * FROM Post WHERE completed=0 AND deleted=0;");
 			rs = ps.executeQuery();
 			
 			// Gets information for each post
@@ -170,5 +211,91 @@ public class RMDatabase {
 		}
 		
 		return posts;
+	}
+	
+	// Gets requests for this lender id (all outgoing requests)
+	public static ArrayList<RMRequest> getRequestsForLender(int lenderID) {
+		// Initial null SQL variables
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		ArrayList<RMRequest> requests = new ArrayList<RMRequest>();
+		
+		// Get all posts
+		try {
+			ps = conn.prepareStatement("SELECT * FROM Request WHERE lenderID=? AND completed=0 AND deleted=0;");
+			ps.setInt(1, lenderID);
+			rs = ps.executeQuery();
+			
+			// Gets information for each post
+			while (rs.next()) {
+				int requestID = rs.getInt("requestID");
+				String itemName = rs.getString("itemName");
+				Date requestDate = rs.getDate("requestDate");
+				boolean completed = rs.getBoolean("completed");
+				boolean deleted = rs.getBoolean("deleted");
+				int rating = rs.getInt("rating");
+				int borrowerID = rs.getInt("borrowerID");
+				int chatID = rs.getInt("chatID");
+				int postID = rs.getInt("postID");
+				
+				// Adds to list of posts
+				requests.add(new RMRequest(requestID, itemName, requestDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
+			}
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+		
+		return requests;
+	}
+	
+	// Gets requests for this borrower id (all incoming requests)
+	public static ArrayList<RMRequest> getRequestsForBorrower(int borrowerID) {
+		// Initial null SQL variables
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		ArrayList<RMRequest> requests = new ArrayList<RMRequest>();
+		
+		// Get all posts
+		try {
+			ps = conn.prepareStatement("SELECT * FROM Request WHERE borrowerID=? AND completed=0 AND deleted=0;");
+			ps.setInt(1, borrowerID);
+			rs = ps.executeQuery();
+			
+			// Gets information for each post
+			while (rs.next()) {
+				int requestID = rs.getInt("requestID");
+				String itemName = rs.getString("itemName");
+				Date requestDate = rs.getDate("requestDate");
+				boolean completed = rs.getBoolean("completed");
+				boolean deleted = rs.getBoolean("deleted");
+				int rating = rs.getInt("rating");
+				int lenderID = rs.getInt("lenderID");
+				int chatID = rs.getInt("chatID");
+				int postID = rs.getInt("postID");
+				
+				// Adds to list of posts
+				requests.add(new RMRequest(requestID, itemName, requestDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
+			}
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+		
+		return requests;
 	}
 }
