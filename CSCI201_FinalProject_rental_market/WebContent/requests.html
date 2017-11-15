@@ -56,61 +56,65 @@
     </div>
 
     <div class="col-sm-3" id="col3">
-
+    
       <div class="well well-sm">Requests</div>
-
-      <div class="panel panel-danger middlerow"> <!-- TODO modify class, matching the status of the request -->
-        <div class="panel-heading">
-          <!-- <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px"> -->
-          <span>[Pending]</span><!-- TODO modify text, matching the status and the user involved -->
-          <span>Created at 10/24</span> <!-- TODO modify text, matching the created date -->
+      <div id="postList">
+        
+        <!-- Example -->
+        <div class="panel panel-danger middlerow"> <!-- TODO modify class, matching the status of the request -->
+          <div class="panel-heading">
+            <!-- <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px"> -->
+            <span>[Pending]</span><!-- TODO modify text, matching the status and the user involved -->
+            <span>Created at 10/24</span> <!-- TODO modify text, matching the created date -->
+          </div>
+          <div class="panel-body">
+            <p>Item requested</p><!-- TODO modify text, matching the details of the request -->
+            <p>Discription of the item.</p>
+            <p>$2 need before 10/28 return before 10/31</p>
+          </div>
         </div>
-        <div class="panel-body">
-          <p>Item requested</p><!-- TODO modify text, matching the details of the request -->
-          <p>Discription of the item.</p>
-          <p>$2 need before 10/28 return before 10/31</p>
-        </div>
-      </div>
 
       <!-- These are more examples -->
-      <div class="panel panel-warning middlerow">
-        <div class="panel-heading">
-          <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>[Ongoing] [lent to] Username</span>
-          <span>Created at 10/23</span>
+        <div class="panel panel-warning middlerow">
+          <div class="panel-heading">
+            <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+            <span>[Ongoing] [lent to] Username</span>
+            <span>Created at 10/23</span>
+          </div>
+          <div class="panel-body">
+            <p>Item requested</p>
+            <p>Discription of the item.</p>
+            <p>$1 lent at 10/24 return before 10/31</p>
+          </div>
         </div>
-        <div class="panel-body">
-          <p>Item requested</p>
-          <p>Discription of the item.</p>
-          <p>$1 lent at 10/24 return before 10/31</p>
+        <div class="panel panel-success middlerow">
+          <div class="panel-heading">
+            <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+            <span>[Completed] [lent to] Username</span>
+            <span>Created at 10/21</span>
+          </div>
+          <div class="panel-body">
+            <p>Item requested</p>
+            <p>Discription of the item.</p>
+            <p>$2 lent at 10/22 returned at 10/26</p>
+            <p class="alert alert-success">Positive rating!</p>
+          </div>
         </div>
-      </div>
-      <div class="panel panel-success middlerow">
-        <div class="panel-heading">
-          <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>[Completed] [lent to] Username</span>
-          <span>Created at 10/21</span>
-        </div>
-        <div class="panel-body">
-          <p>Item requested</p>
-          <p>Discription of the item.</p>
-          <p>$2 lent at 10/22 returned at 10/26</p>
-          <p class="alert alert-success">Positive rating!</p>
-        </div>
-      </div>
 
-      <div class="panel panel-success middlerow">
-        <div class="panel-heading">
-          <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-          <span>[Completed] [borrowed from] Username</span>
-          <span>Created at 10/20</span>
+        <div class="panel panel-success middlerow">
+          <div class="panel-heading">
+            <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
+            <span>[Completed] [borrowed from] Username</span>
+            <span>Created at 10/20</span>
+          </div>
+          <div class="panel-body">
+            <p>Item requested</p>
+            <p>Discription of the item.</p>
+            <p>$2 borrowed at 10/21 returned at 10/25</p>
+            <p class="alert alert-danger">Negative rating.</p>
+          </div>
         </div>
-        <div class="panel-body">
-          <p>Item requested</p>
-          <p>Discription of the item.</p>
-          <p>$2 borrowed at 10/21 returned at 10/25</p>
-          <p class="alert alert-danger">Negative rating.</p>
-        </div>
+      <!-- Example of what it should look like -->
       </div>
     </div>
     <div class="col-sm-7" id="col7">

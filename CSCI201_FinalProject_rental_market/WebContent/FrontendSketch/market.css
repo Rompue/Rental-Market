@@ -1,5 +1,11 @@
-
-
+.mainpage {
+	/*height: 622px;
+	position: fixed;*/
+}
+#currRequest {
+	height: 612px;
+	overflow: scroll;
+}
 #buttons {
   width: 100%;
 }
