@@ -50,6 +50,13 @@ public class RMUser {
 		return totalRatings;
 	}
 	
+	public int getPositivePercentage() {
+		if(totalRatings == 0) {
+			return 0;
+		}
+		return (positiveRatings / totalRatings) * 100;
+	}
+	
 	public String getFullName() {
 		return getFirstName() + " " + getLastName();
 	}
