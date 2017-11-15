@@ -15,11 +15,27 @@
   <link rel="stylesheet" href="styles/market.css" type="text/css">
   <link rel="stylesheet" type="text/css" href="styles/shell.css">
   <script>
+  	var socket;
   	function populate() {
     		addImage();
     		addUserName();
     		addPostList();
+    		connectToServer();
     }
+	function connectToServer() {
+		socket = new WebSocket("ws://localhost:8080/Project/mks");
+		socket.onopen = function(event) {
+			
+		}
+		socket.onmessage = function(event) {
+			if(event.data == "newPost") {
+				addPostList();
+			}
+		}
+		socket.onclose = function(event) {
+			
+		}
+	}
     function addImage() {
     		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "addImage.jsp", false);
@@ -52,11 +68,19 @@
 			document.getElementById("col7").innerHTML = xhttp.responseText;
 		}
     }
+    function showProfileDetail() {
+    		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "profileDetail.jsp", false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("col7").innerHTML = xhttp.responseText;
+		}
+    }
    </script>
 </head>
 
 <body onload = "populate()">
-<div class="row mainpage">
+<div class="mainpage">
   <div class="col-sm-2" id="col2">
     <div id = "profileimage" class="profileimage">
     </div>
@@ -68,7 +92,7 @@
     <div id = "username">
     </div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#" class="shellLink">Profile</a></li>
+      <li><a class="shellLink" onclick = "showProfileDetail()">Profile</a></li>
       <li class="active"><a href="#" class="shellLink">Market</a></li>
       <li><a href="#" class="shellLink">Requests</a></li>
     </ul><br>
@@ -82,7 +106,6 @@
     </div>
   </div>
   <div class="col-sm-7" id="col7">
-    
   </div>
 </body>
 
