@@ -3,7 +3,7 @@
 	margin-left: 40px;
 	padding-top: 15px;
 }
-#postList {
+#currRequest {
 	height: 612px;
 	overflow: scroll;
 }
