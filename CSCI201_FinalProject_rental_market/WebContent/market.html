@@ -16,7 +16,6 @@
   <link rel="stylesheet" type="text/css" href="styles/shell.css">
   <script>
   	var socket;
-
     // Use these variables to keep track of the content loaded
     var loadedProfile = false;
     var loadedMarket = true;
@@ -25,7 +24,11 @@
   		addImage();
   		addUserName();
   		addPostList();
+  		showPostDetail();
   		connectToServer();
+    }
+  	window.onbeforeunload = function () {
+        socket.close();
     }
   	function connectToServer() {
   		socket = new WebSocket("ws://localhost:8080/Project/mks");
@@ -34,6 +37,7 @@
   		}
   		socket.onmessage = function(event) {
   			if(event.data == "newPost") {
+  				document.getElementById("marketplaceHead").style.backgroundColor = "red";
   				addPostList();
   			}
   		}
@@ -42,7 +46,7 @@
   		}
   	}
     function addImage() {
-    	var xhttp = new XMLHttpRequest();
+    		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "addImage.jsp", false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
@@ -56,7 +60,7 @@
   		if(xhttp.responseText.trim().length > 0){
   			document.getElementById("username").innerHTML = xhttp.responseText;
   		}
-	  }
+	}
     function addPostList() {
   		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "marketPostList.jsp", false);
@@ -64,26 +68,99 @@
   		if(xhttp.responseText.trim().length > 0){
   			document.getElementById("currRequest").innerHTML = xhttp.responseText;
   		}
-	  }
+  		else {
+  			document.getElementById("currRequest").innerHTML = "";
+  		}
+	}
+    function requestSetting() {
+    		addRequestList();
+    		showRequestRight();
+    		loadedProfile = false;
+        loadedMarket = false;
+        loadedRequest = true;
+        document.getElementById("marketplaceHead").innerHTML = "Requests";
+        switchHightlight();
+    }
+    function addRequestList() {
+  		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "addRequestList.jsp", false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			document.getElementById("currRequest").innerHTML = xhttp.responseText;
+  		}
+  		else {
+  			document.getElementById("currRequest").innerHTML = "";
+  		}
+	}
+    function showRequestDetail(div) {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "addRequestDetail.jsp?requestID=" + div.id, false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("col7").innerHTML = xhttp.responseText;
+		}
+		else {
+			document.getElementById("col7").innerHTML = "";
+		}
+	}
+    function showRequestRight() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "addRequestDetail.jsp?requestID=-1", false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("col7").innerHTML = xhttp.responseText;
+		}
+		else {
+  			document.getElementById("col7").innerHTML = "";
+  		}
+		loadedProfile = false;
+    		loadedMarket = true;
+    		loadedRequest = false;
+    		switchHightlight();
+	}
     function showDetail(div) {
-    	var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "marketPostDetail.jsp?divID=" + div.id, false);
+    		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "marketPostDetail.jsp?postID=" + div.id, false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
   			document.getElementById("col7").innerHTML = xhttp.responseText;
   		}
+  		else {
+  			document.getElementById("col7").innerHTML = "";
+  		}
+  		loadedProfile = false;
+        loadedMarket = true;
+        loadedRequest = false;
+        switchHightlight();
     }
+    function showPostDetail() {
+    		document.getElementById("marketplaceHead").innerHTML = "Market";
+    		addPostList();
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "marketPostDetail.jsp?postID=-1", false);
+		xhttp.send();
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("col7").innerHTML = xhttp.responseText;
+		}
+		else {
+  			document.getElementById("col7").innerHTML = "";
+  		}
+		loadedProfile = false;
+    		loadedMarket = true;
+    		loadedRequest = false;
+    		switchHightlight();
+	}
     function showProfileDetail() {
-    	var xhttp = new XMLHttpRequest();
+    		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "profileDetail.jsp", false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
   			document.getElementById("col7").innerHTML = xhttp.responseText;
   		}
-      loadedProfile = true;
-      loadedMarket = false;
-      loadedRequest = false;
-      switchHightlight();
+      	loadedProfile = true;
+      	loadedMarket = false;
+      	loadedRequest = false;
+      	switchHightlight();
     }
 
     // This will change the highlights depending on the content loaded
@@ -119,16 +196,16 @@
     <div id = "username">
     </div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a class="shellLink" onclick = "showProfileDetail()">Profile</a></li>
-      <li class="active"><a href="#" class="shellLink">Market</a></li>
-      <li><a href="#" class="shellLink">Requests</a></li>
+      <li id = "profile"><a href = "#" class="shellLink" onclick = "showProfileDetail()">Profile</a></li>
+      <li id = "market" class="active"><a href="#" class="shellLink" onclick = "showPostDetail()">Market</a></li>
+      <li id = "request"><a href="#" class="shellLink" onclick = "requestSetting()">Requests</a></li>
     </ul><br>
     <button type="button" class="btn btn-default btn-block">New Request</button>
   </div>
 
   <!-- Dynamically create these cells -->
   <div class="col-sm-3" id="col3">
-    <div class="well well-sm">Marketplace</div>
+    <div class="well well-sm" id = "marketplaceHead">Marketplace</div>
     <div id = "currRequest">
     </div>
   </div>
