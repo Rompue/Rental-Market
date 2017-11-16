@@ -8,10 +8,6 @@ CREATE TABLE ProfileImage (
     imageLink VARCHAR(1000) NOT NULL
 );
 
-CREATE TABLE Chat (
-	chatID INT(11) PRIMARY KEY AUTO_INCREMENT
-);
-
 CREATE TABLE Person (
 	userID INT(11) PRIMARY KEY AUTO_INCREMENT,
     firstName VARCHAR(100) NOT NULL,
@@ -33,10 +29,9 @@ CREATE TABLE Post (
     dueDate DATETIME NOT NULL,
     completed TINYINT(1) NOT NULL,
     deleted TINYINT(1) NOT NULL,
+    
     userID INT(11) NOT NULL,
-    FOREIGN KEY fk1(userID) REFERENCES Person(userID),
-	chatID INT(11) NOT NULL,
-    FOREIGN KEY fk2(chatID) REFERENCES Chat(chatID)
+    FOREIGN KEY fk1(userID) REFERENCES Person(userID)
 );
 
 CREATE TABLE Request (
@@ -47,12 +42,20 @@ CREATE TABLE Request (
     dueDate DATETIME NOT NULL,
     deleted TINYINT(1) NOT NULL,
     rating INT(1),
+    
     borrowerID INT(11) NOT NULL,
     lenderID INT(11) NOT NULL,
     FOREIGN KEY fk1(borrowerID) REFERENCES Person(userID),
-    FOREIGN KEY fk2(lenderID) REFERENCES Person(userID),
-    chatID INT(11) NOT NULL,
-    FOREIGN KEY fk3(chatID) REFERENCES Chat(chatID)
+    FOREIGN KEY fk2(lenderID) REFERENCES Person(userID)
+);
+
+CREATE TABLE Chat (
+	chatID INT(11) PRIMARY KEY AUTO_INCREMENT,
+    
+	postID INT(11),
+    FOREIGN KEY fk1(postID) REFERENCES Post(postID),
+    requestID INT(11),
+    FOREIGN KEY fk2(requestID) REFERENCES Request(requestID)
 );
 
 CREATE TABLE ChatMessage (
