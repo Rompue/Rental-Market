@@ -6,11 +6,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class RMDatabase {
 	
-	private static Connection conn = null;
+	public static Connection conn = null;
 	private static boolean databaseInitialized = false;
 	
 	public static void initializeDatabase() {
@@ -19,7 +20,7 @@ public class RMDatabase {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				// Connects to database
-				conn = DriverManager.getConnection("jdbc:mysql://localhost/RentalMarketplace?user=root&password=Albertcollege@2017&useSSL=false");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/RentalMarketplace?user=root&password=CSCI-201&useSSL=false");
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
@@ -300,5 +301,49 @@ public class RMDatabase {
 		}
 		
 		return requests;
+	}
+	
+	public static void createNewMarketplacePost(int userID, String itemName, String postDescription, String borrowAmount, Date dueDate) throws RMCreatePostException {
+		// Checks to ensure information was actually passed in
+		if (itemName == null || itemName.trim().equals("")) throw new RMCreatePostException("itemName is empty", 1);
+		else if (postDescription == null) throw new RMCreatePostException("postDescription is null", 2);
+		else if (borrowAmount == null || borrowAmount.trim().equals("")) throw new RMCreatePostException("borrowAmount is empty", 3);
+		else if (dueDate == null) throw new RMCreatePostException("dueDate is null", 4);
+		
+		// Initial null SQL variables
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		// Attempt to log in
+		try {
+			ps = conn.prepareStatement("INSERT INTO Post (itemName, postDescription, borrowAmount, postDate, dueDate, completed, deleted, userID) VALUES (?, ?, ?, ?, ?, 0, 0, ?);", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, itemName);
+			ps.setString(2,  postDescription);
+			ps.setString(3, borrowAmount);
+			ps.setDate(4, new Date(System.currentTimeMillis()));
+			ps.setDate(5, dueDate);
+			ps.setInt(6, userID);
+			ps.executeUpdate();
+			
+			// Gets the generated postID so it can create a new chat
+			rs = ps.getGeneratedKeys();
+			if (rs.next()) { // Should always return true
+				int postID = rs.getInt(1);				
+				ps.close();
+				// Creates a new chat
+				ps = conn.prepareStatement("INSERT INTO Chat (postID) VALUES (?);");
+				ps.setInt(1, postID);
+				ps.execute();
+			}
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
 	}
 }

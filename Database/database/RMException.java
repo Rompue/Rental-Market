@@ -2,6 +2,8 @@ package database;
 
 public class RMException extends Exception {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int errorCode;
 	private String errorMessage;
 	
