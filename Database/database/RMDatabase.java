@@ -19,7 +19,7 @@ public class RMDatabase {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				// Connects to database
-				conn = DriverManager.getConnection("jdbc:mysql://localhost/RentalMarketplace?user=root&password=CSCI-201&useSSL=false");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/RentalMarketplace?user=root&password=Albertcollege@2017&useSSL=false");
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
@@ -224,7 +224,7 @@ public class RMDatabase {
 		
 		// Get all posts
 		try {
-			ps = conn.prepareStatement("SELECT * FROM Request WHERE lenderID=? AND completed=0 AND deleted=0;");
+			ps = conn.prepareStatement("SELECT * FROM Request WHERE lenderID=? AND deleted=0;");
 			ps.setInt(1, lenderID);
 			rs = ps.executeQuery();
 			
@@ -268,7 +268,7 @@ public class RMDatabase {
 		
 		// Get all posts
 		try {
-			ps = conn.prepareStatement("SELECT * FROM Request WHERE borrowerID=? AND completed=0 AND deleted=0;");
+			ps = conn.prepareStatement("SELECT * FROM Request WHERE borrowerID=? AND deleted=0;");
 			ps.setInt(1, borrowerID);
 			rs = ps.executeQuery();
 			
