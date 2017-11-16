@@ -105,7 +105,7 @@
 					statusStr += "[Borrowed from] " + borrower.getFullName();
 				}
 %>
-            		<span>[Completed] <%= statusStr %></span>
+            		<span>[Ongoing] <%= statusStr %></span>
 <%
 				String date = "Created on " + rmRequest.getRequestDate();
 %>
