@@ -28,10 +28,49 @@
           <button type="button" class="btn btn-default">Requests</button>
         </div> -->
         <h3>Username</h3>
+        <script>
+          var loadedProfile = false;
+          var loadedMarket = true;
+          var loadedRequest = false;
+          function switchHightlight() {
+            if (loadedProfile) {
+              document.getElementById("profile").className = "active";
+              document.getElementById("market").className = "";
+              document.getElementById("request").className = "";
+            }
+            else if (loadedMarket) {
+              document.getElementById("profile").className = "";
+              document.getElementById("market").className = "active";
+              document.getElementById("request").className = "";            }
+            else if (loadedRequest) {
+              document.getElementById("profile").className = "";
+              document.getElementById("market").className = "";
+              document.getElementById("request").className = "active";
+            }
+          }
+          function testProfileSwitch() {
+            loadedProfile = true;
+            loadedMarket = false;
+            loadedRequest = false;
+            switchHightlight();
+          }
+          function testMarketSwitch() {
+            loadedProfile = false;
+            loadedMarket = true;
+            loadedRequest = false;
+            switchHightlight();
+          } 
+          function testRequestSwitch() {
+            loadedProfile = false;
+            loadedMarket = false;
+            loadedRequest = true;
+            switchHightlight();
+          }
+        </script>
         <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Profile</a></li>
-          <li class="active"><a href="#">Market</a></li>
-          <li><a href="#">Requests</a></li>
+          <li id="profile" clas="" onclick="testProfileSwitch();"><a href="#">Profile</a></li>
+          <li id="market" class="active" onclick="testMarketSwitch();"><a href="#">Market</a></li>
+          <li id="request" class="" onclick="testRequestSwitch();"><a href="#">Requests</a></li>
         </ul><br>
         <button type="button" class="btn btn-default btn-block">New Request</button>
 
