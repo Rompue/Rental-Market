@@ -391,7 +391,31 @@ public class RMDatabase {
 		}
 	}
 	
-	public static void sendRequestToUser(int lenderID, int borrowerID, String itemName, Date dueDate) throws RMCreateRequestException {
-		createNewRequest(lenderID, borrowerID, itemName, dueDate, 0);
+	public static void sendRequestToUser(int lenderID, String borrowerEmail, String itemName, Date dueDate) throws RMCreateRequestException {
+		// Tries to get the userID for the borrower's email address
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement("SELECT userID FROM Person WHERE email=?;");
+			ps.setString(1, borrowerEmail);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) { // Found a user, get their userID
+				int borrowerID = rs.getInt("userID");
+				createNewRequest(lenderID, borrowerID, itemName, dueDate, 0);
+			}
+			else { // No user with this email exists
+				throw new RMCreateRequestException("No user with email " + borrowerEmail + " exists in the database", 3);
+			}
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
 	}
 }
