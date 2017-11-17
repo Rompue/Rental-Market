@@ -37,7 +37,7 @@ CREATE TABLE Post (
 CREATE TABLE Request (
 	requestID INT(11) PRIMARY KEY AUTO_INCREMENT,
     itemName VARCHAR(100) NOT NULL,
-    dateCreated DATETIME NOT NULL,
+    requestDate DATETIME NOT NULL,
     dueDate DATETIME NOT NULL,
     completed TINYINT(1) NOT NULL,
     deleted TINYINT(1) NOT NULL,
