@@ -40,30 +40,28 @@
 	if(flag.equals("true")){
 	if((rmRequest.getCompleted() == true)) {
 %>
-		<div class="panel panel-sucess">
+		<div class="panel panel-success">
         		<div class="panel-heading">
 <%
 				String statusStr = "";
 				if(rmRequest.getBorrowerID() == user.getUserID()) {
 					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
-					statusStr += "[Borrowed from] " + lender.getFullName();
+					statusStr += "[Borrowed From] " + lender.getFullName();
 				}
 				if(rmRequest.getLenderID() == user.getUserID()) {
-					RMUser borrower = RMDatabase.getUserForID(rmRequest.getLenderID());
-					statusStr += "[Borrowed from] " + borrower.getFullName();
+					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
+					statusStr += "[Lend To] " + borrower.getFullName();
 				}
 %>
             		<span>[Completed] <%= statusStr %></span>
 <%
-				String date = "Created on " + rmRequest.getRequestDate();
+				String date = "Created on " + rmRequest.getDateCreated();
 %>
               	<span><%= date %></span>
             </div>
             <div class="panel-body">
             		<p><%= rmRequest.getItemName() %></p>
-            		<p>Discription of the item.</p>
             		<p>Until: <%= rmRequest.getDueDate() %>
-            		<p>Amount</p>
               	<button type="button" class="btn">Delete Request</button>
               	<hr>
               	<div class="panel">
@@ -98,24 +96,22 @@
 				String statusStr = "";
 				if(rmRequest.getBorrowerID() == user.getUserID()) {
 					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
-					statusStr += "[Borrowed from] " + lender.getFullName();
+					statusStr += "[Borrowed From] " + lender.getFullName();
 				}
 				if(rmRequest.getLenderID() == user.getUserID()) {
-					RMUser borrower = RMDatabase.getUserForID(rmRequest.getLenderID());
-					statusStr += "[Borrowed from] " + borrower.getFullName();
+					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
+					statusStr += "[Lend To] " + borrower.getFullName();
 				}
 %>
             		<span>[Ongoing] <%= statusStr %></span>
 <%
-				String date = "Created on " + rmRequest.getRequestDate();
+				String date = "Created on " + rmRequest.getDateCreated();
 %>
               	<span><%= date %></span>
             </div>
             <div class="panel-body">
             		<p><%= rmRequest.getItemName() %></p>
-            		<p>Discription of the item.</p>
             		<p>Until: <%= rmRequest.getDueDate() %>
-            		<p>Amount</p>
               	<button type="button" class="btn">Delete Request</button>
               	<hr>
               	<div class="panel">

@@ -14,17 +14,15 @@
 					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
 %>
             			<img src="<%= lender.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Ongoing] [Borrowed From] <%= lender.getFullName() %></span>
+            			<span>[Ongoing] [Borrowed From] <%= lender.getUserID() %> <%= lender.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getRequestDate();
+					String date = "Created on " + rmRequest.getDateCreated();
 %>
            			<span><%= date %></span>
           		</div>
           		<div class="panel-body">
             			<p>Item: <%= rmRequest.getItemName() %></p>
-            			<p>Discription of the item.</p>
             			<p>Until: <%= rmRequest.getDueDate() %></p>
-            			<p>Amount</p>
           		</div>
         		</div>	
 <%
@@ -40,17 +38,15 @@
 					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
 %>
             			<img src="<%= borrower.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Ongoing] [Lent to] <%= borrower.getFullName() %></span>
+            			<span>[Ongoing] [Lent To] <%= borrower.getUserID() %> <%= borrower.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getRequestDate();
+					String date = "Created on " + rmRequest.getDateCreated();
 %>
            			<span><%= date %></span>
           		</div>
           		<div class="panel-body">
             			<p>Item: <%= rmRequest.getItemName() %></p>
-            			<p>Discription of the item.</p>
             			<p>Until: <%= rmRequest.getDueDate() %></p>
-            			<p>Amount</p>
           		</div>
         		</div>	
 <%
@@ -66,17 +62,15 @@
 					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
 %>
             			<img src="<%= lender.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Completed] [Borrowed by] <%= lender.getFullName() %></span>
+            			<span>[Completed] [Borrowed From] <%= lender.getUserID() %> <%= lender.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getRequestDate();
+					String date = "Created on " + rmRequest.getDateCreated();
 %>
            			<span><%= date %></span>
           		</div>
           		<div class="panel-body">
             			<p>Item: <%= rmRequest.getItemName() %></p>
-            			<p>Discription of the item.</p>
             			<p>Until: <%= rmRequest.getDueDate() %></p>
-            			<p>Amount</p>
           		</div>
         		</div>	
 <%
@@ -89,20 +83,18 @@
 			<div id = "<%= rmRequest.getRequestID() %>" class="panel panel-success middlerow" onclick="showRequestDetail(this)">
           		<div class="panel-heading">
 <%
-					RMUser borrower = RMDatabase.getUserForID(rmRequest.getLenderID());
+					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
 %>
             			<img src="<%= borrower.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Completed] [Lent to] <%= borrower.getFullName() %></span>
+            			<span>[Completed] [Lent To] <%= borrower.getUserID() %> <%= borrower.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getRequestDate();
+					String date = "Created on " + rmRequest.getDateCreated();
 %>
            			<span><%= date %></span>
           		</div>
           		<div class="panel-body">
             			<p>Item: <%= rmRequest.getItemName() %></p>
-            			<p>Discription of the item.</p>
             			<p>Until: <%= rmRequest.getDueDate() %></p>
-            			<p>Amount</p>
           		</div>
         		</div>	
 <%
