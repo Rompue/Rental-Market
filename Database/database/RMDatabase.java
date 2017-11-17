@@ -241,7 +241,7 @@ public class RMDatabase {
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, dateCreated, dueDate, completed, deleted, rating, lenderID, borrowerID, postID));
+				requests.add(new RMRequest(requestID, itemName, dateCreated, dueDate, completed, deleted, rating, borrowerID, lenderID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
@@ -284,7 +284,7 @@ public class RMDatabase {
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, lenderID, borrowerID, postID));
+				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
