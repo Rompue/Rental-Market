@@ -232,7 +232,7 @@ public class RMDatabase {
 			while (rs.next()) {
 				int requestID = rs.getInt("requestID");
 				String itemName = rs.getString("itemName");
-				Date dateCreated = rs.getDate("dateCreated");
+				Date requestDate = rs.getDate("requestDate");
 				Date dueDate = rs.getDate("dueDate");
 				boolean completed = rs.getBoolean("completed");
 				boolean deleted = rs.getBoolean("deleted");
@@ -241,7 +241,7 @@ public class RMDatabase {
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, dateCreated, dueDate, completed, deleted, rating, borrowerID, lenderID, postID));
+				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
