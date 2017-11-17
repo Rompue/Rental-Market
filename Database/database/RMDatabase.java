@@ -196,10 +196,9 @@ public class RMDatabase {
 				boolean completed = rs.getBoolean("completed");
 				boolean deleted = rs.getBoolean("deleted");
 				int userID = rs.getInt("userID");
-				int chatID = rs.getInt("chatID");
 				
 				// Adds to list of posts
-				posts.add(new RMPost(postID, itemName, postDescription, borrowAmount, postDate, dueDate, completed, deleted, userID, chatID));
+				posts.add(new RMPost(postID, itemName, postDescription, borrowAmount, postDate, dueDate, completed, deleted, userID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
