@@ -238,11 +238,10 @@ public class RMDatabase {
 				boolean deleted = rs.getBoolean("deleted");
 				int rating = rs.getInt("rating");
 				int borrowerID = rs.getInt("borrowerID");
-				int chatID = rs.getInt("chatID");
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, dateCreated, dueDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
+				requests.add(new RMRequest(requestID, itemName, dateCreated, dueDate, completed, deleted, rating, lenderID, borrowerID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
@@ -282,11 +281,10 @@ public class RMDatabase {
 				boolean deleted = rs.getBoolean("deleted");
 				int rating = rs.getInt("rating");
 				int lenderID = rs.getInt("lenderID");
-				int chatID = rs.getInt("chatID");
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, lenderID, borrowerID, chatID, postID));
+				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, lenderID, borrowerID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());

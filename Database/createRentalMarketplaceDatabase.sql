@@ -46,7 +46,10 @@ CREATE TABLE Request (
     borrowerID INT(11) NOT NULL,
     lenderID INT(11) NOT NULL,
     FOREIGN KEY fk1(borrowerID) REFERENCES Person(userID),
-    FOREIGN KEY fk2(lenderID) REFERENCES Person(userID)
+    FOREIGN KEY fk2(lenderID) REFERENCES Person(userID),
+    
+    postID INT(11),
+    FOREIGN KEY fk3(postID) REFERENCES Post(postID)
 );
 
 CREATE TABLE Chat (
