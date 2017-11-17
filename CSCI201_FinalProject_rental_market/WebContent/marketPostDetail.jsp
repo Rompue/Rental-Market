@@ -3,9 +3,14 @@
 <%@ page import="database.*" %>
 <%@ page import= "java.util.ArrayList" %>
 <%
-	String idStr = request.getParameter("divID");
+	String idStr = request.getParameter("postID");
 	int id = Integer.parseInt(idStr);
 	ArrayList<RMPost> postList = RMDatabase.getAllMarketplacePosts();
+	if(id == -1) {
+		if(postList.size() > 0) {
+			id = postList.get(0).getPostID();
+		}
+	}
 	for(RMPost post : postList) {
 		if(post.getPostID() == id) {
 			RMUser user = RMDatabase.getUserForID(post.getUserID());

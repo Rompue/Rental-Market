@@ -28,17 +28,24 @@
   		connectToServer();
     }
   	window.onbeforeunload = function () {
+  		socket.send("ActionB" + document.getElementById("usernameheader").innerHTML);
         socket.close();
-    }
+    };
   	function connectToServer() {
   		socket = new WebSocket("ws://localhost:8080/Project/mks");
   		socket.onopen = function(event) {
-  			
+  			socket.send("ActionA" + document.getElementById("usernameheader").innerHTML);
   		}
   		socket.onmessage = function(event) {
-  			if(event.data == "newPost") {
-  				document.getElementById("marketplaceHead").style.backgroundColor = "red";
-  				addPostList();
+  			if(event.data == "New Post") {
+  				if(loadedMarket == true) {
+  					document.getElementById("marketplaceHead").style.backgroundColor = "red";
+  	  				addPostList();
+  				}
+  				else if(loadedProfile == true) {
+  					document.getElementById("marketplaceHead").style.backgroundColor = "red";
+  	  				addPostList();
+  				}
   			}
   		}
   		socket.onclose = function(event) {
@@ -93,6 +100,7 @@
   		}
 	}
     function showRequestDetail(div) {
+    		document.getElementById("marketplaceHead").style.backgroundColor = "grey";
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "addRequestDetail.jsp?requestID=" + div.id, false);
 		xhttp.send();
@@ -179,6 +187,9 @@
         document.getElementById("market").className = "";
         document.getElementById("request").className = "active";
       }
+      document.getElementById("newRequestPButton").onclick = function() {
+    	  	window.location.href = "newrequest.html";
+      };
     }
    </script>
 </head>
@@ -200,7 +211,7 @@
       <li id = "market" class="active"><a href="#" class="shellLink" onclick = "showPostDetail()">Market</a></li>
       <li id = "request"><a href="#" class="shellLink" onclick = "requestSetting()">Requests</a></li>
     </ul><br>
-    <button type="button" class="btn btn-default btn-block">New Request</button>
+    <button id = "newRequestPButton" type="button" class="btn btn-default btn-block">New Request</button>
   </div>
 
   <!-- Dynamically create these cells -->
