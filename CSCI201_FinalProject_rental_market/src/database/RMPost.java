@@ -14,9 +14,8 @@ public class RMPost {
 	private boolean deleted;
 	
 	private int userID;
-	private int chatID;
 	
-	public RMPost(int postID, String itemName, String postDescription, String borrowAmount, Date postDate, Date dueDate, boolean completed, boolean deleted, int userID, int chatID) {
+	public RMPost(int postID, String itemName, String postDescription, String borrowAmount, Date postDate, Date dueDate, boolean completed, boolean deleted, int userID) {
 		this.postID = postID;
 		this.itemName = itemName;
 		this.postDescription = postDescription;
@@ -26,7 +25,6 @@ public class RMPost {
 		this.completed = completed;
 		this.deleted = deleted;
 		this.userID = userID;
-		this.chatID = chatID;
 	}
 	
 	public int getPostID() {
@@ -65,7 +63,7 @@ public class RMPost {
 		return userID;
 	}
 	
-	public int getChatID() {
-		return chatID;
+	public void sendRequest(int lenderID) throws RMCreateRequestException {
+		RMDatabase.createNewRequest(lenderID, this.getUserID(), this.getItemName(), this.getDueDate(), this.getPostID());
 	}
 }
