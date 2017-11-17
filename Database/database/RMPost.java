@@ -62,4 +62,8 @@ public class RMPost {
 	public int getUserID() {
 		return userID;
 	}
+	
+	public void sendRequest(int lenderID) throws RMCreateRequestException {
+		RMDatabase.createNewRequest(lenderID, this.getUserID(), this.getItemName(), this.getDueDate(), this.getPostID());
+	}
 }

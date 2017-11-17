@@ -344,7 +344,7 @@ public class RMDatabase {
 		}
 	}
 	
-	private static void createNewRequest(int lenderID, int borrowerID, String itemName, Date dueDate, int postID) throws RMCreateRequestException {
+	static void createNewRequest(int lenderID, int borrowerID, String itemName, Date dueDate, int postID) throws RMCreateRequestException {
 		// Checks to ensure information was actually passed in
 		if (itemName == null || itemName.trim().equals("")) throw new RMCreateRequestException("itemName is empty", 1);
 		else if (dueDate == null) throw new RMCreateRequestException("dueDate is null", 2);
@@ -393,9 +393,5 @@ public class RMDatabase {
 	
 	public static void sendRequestToUser(int lenderID, int borrowerID, String itemName, Date dueDate) throws RMCreateRequestException {
 		createNewRequest(lenderID, borrowerID, itemName, dueDate, 0);
-	}
-	
-	public static void sendRequestToPost(int lenderID, RMPost post) throws RMCreateRequestException {
-		createNewRequest(lenderID, post.getUserID(), post.getItemName(), post.getDueDate(), post.getPostID());
 	}
 }
