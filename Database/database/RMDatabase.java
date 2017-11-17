@@ -372,7 +372,8 @@ public class RMDatabase {
 			// Gets the generated requestID so it can create a new chat
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) { // Should always return true
-				int requestID = rs.getInt(1);				
+				int requestID = rs.getInt(1);
+				rs.close();
 				ps.close();
 				// Creates a new chat
 				ps = conn.prepareStatement("INSERT INTO Chat (requestID) VALUES (?);");
