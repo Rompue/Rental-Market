@@ -13,25 +13,69 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="styles/newrequest.css" type="text/css">
-  <script type="text/javascript">
-     /**
-      * TODO: Here the fields that need to be validated 
-      * -username: Make sure the username is in the database
-      * -Need by: Make sure that the date is reasonable (We can decide on this later)
-      * -Return by: Make sure that the date is reasonable (We can decide on this later)
-      */
-     
-     
+  <script>
+  	function onLoadWork() {
+  		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "newRequestAddUser.jsp", false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			document.getElementById("userEmail").innerHTML = xhttp.responseText;
+  		}
+  	}
+  	function connectToServer() {
+		socket = new WebSocket("ws://localhost:8080/Project/mks");
+		socket.onopen = function(event) {
+			socket.send("ActionA" + document.getElementById("userEmail").innerHTML);
+		}
+		socket.onmessage = function(event) {
+			
+		}
+		socket.onclose = function(event) {
+			
+		}
+	}
+  	window.onbeforeunload = function () {
+  		socket.send("ActionB" + document.getElementById("userEmail").innerHTML);
+        socket.close();
+    };
+  	function backToMarket() {
+  		window.location.href = "market.html";
+  	}
+  	function createRequest() {
+  		var xhttp = new XMLHttpRequest();
+  		var specificUser = document.getElementById("username").value;
+  		if(specificUser) {
+  			xhttp.open("post", "createPrivateRequest.jsp?username=" + document.requestForm.username.value + "&itemname=" + document.requestForm.itemname.value + "&returnby=" + document.requestForm.returnby.value, false);
+  			xhttp.send();
+  		}
+  		else {
+  			xhttp.open("post", "createMarketPost.jsp?itemname=" + document.requestForm.itemname.value + "&money=" + document.requestForm.money.value + "&itemDescript=" + document.requestForm.itemDescript.value + "&returnby=" + document.requestForm.returnby.value, false);
+  			xhttp.send();
+  		}
+		if(xhttp.responseText.trim().length > 0){
+			document.getElementById("errormessage").innerHTML = xhttp.responseText;
+			return false;
+		}
+		if(specificUser) {
+			socket.send("ActionC" + specificUser);
+		}
+		else {
+			socket.send("ActionD");
+		}
+		return true
+  	}
   </script>
 </head>
 
-<body>
+<body onload = "onLoadWork()">
 
   <div class="row">
     <div class="col-sm-3">
     </div>
     <div class="col-sm-6">
       <h1>New Request</h1>
+      <div id = "userEmail">
+      </div>
       <p id="requestDes"><b>Please tell us descriptions of the request</b></p><br/>
 
       <form class="requestForm">
@@ -54,12 +98,6 @@
         </div><br>
 
         <div class="input-group dateInfo">
-          <!--<span class="input-group-addon">Need by</span>-->
-          <label>Need by: </label>
-          <input id="needby" type="date" class="form-control" name="needby" min ="1900-01-01" max="3000-01-01">
-        </div><br>
-
-        <div class="input-group dateInfo">
           <!--<span class="input-group-addon">Return by</span>-->
           <label>Return by: </label>
           <input id="returnby" type="date" class="form-control" name="returnby" min ="1900-01-01" max="3000-01-01">
@@ -75,20 +113,17 @@
 
         <!-- Error messages -->
         <div id="errormessage">
-          <p>possible error message</p>
+          
         </div>
         <!-- Error messages -->
 
-        <div class="btn-group  btn-group-justified" id="submitButton">
+        <div class="btn-group  btn-group-justified" id="submitButton" action = "market.html" onsubmit = "return createRequest();">
           <div class="btn-group">
             <input type="submit" name="" value="Submit" class="btn btn-primary">
           </div>
-          <div class="btn-group">
-            <input type="reset" name="" value="Cancel" class="btn btn-primary">
-          </div>
-          <!-- <a href="#" class="btn btn-primary">Apple</a>
-          <a href="#" class="btn btn-primary">Samsung</a>
-          <a href="#" class="btn btn-primary">Sony</a> -->
+        </div>
+        <div class="btn-group">
+            <input type="button" name = "" id="cancelbutton" value="Cancel" class="btn btn-primary" onclick = "backToMarket()">
         </div>
       </form>
     </div>
