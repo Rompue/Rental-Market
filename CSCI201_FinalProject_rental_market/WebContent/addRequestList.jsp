@@ -14,7 +14,7 @@
 					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
 %>
             			<img src="<%= lender.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Ongoing] [Borrowed From] <%= lender.getUserID() %> <%= lender.getFullName() %></span>
+            			<span>[Ongoing] [Borrowed From] <%= lender.getFullName() %></span>
 <%
 					String date = "Created on " + rmRequest.getDateCreated();
 %>
@@ -38,7 +38,7 @@
 					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
 %>
             			<img src="<%= borrower.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Ongoing] [Lent To] <%= borrower.getUserID() %> <%= borrower.getFullName() %></span>
+            			<span>[Ongoing] [Lent To] <%= borrower.getFullName() %></span>
 <%
 					String date = "Created on " + rmRequest.getDateCreated();
 %>
@@ -62,7 +62,7 @@
 					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
 %>
             			<img src="<%= lender.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Completed] [Borrowed From] <%= lender.getUserID() %> <%= lender.getFullName() %></span>
+            			<span>[Completed] [Borrowed From] <%= lender.getFullName() %></span>
 <%
 					String date = "Created on " + rmRequest.getDateCreated();
 %>
@@ -86,7 +86,7 @@
 					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
 %>
             			<img src="<%= borrower.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-            			<span>[Completed] [Lent To] <%= borrower.getUserID() %> <%= borrower.getFullName() %></span>
+            			<span>[Completed] [Lent To] <%= borrower.getFullName() %></span>
 <%
 					String date = "Created on " + rmRequest.getDateCreated();
 %>
