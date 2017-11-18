@@ -4,4 +4,4 @@
 <%
 	RMUser user = (RMUser)request.getSession().getAttribute("user");
 %>
-<h3 id = "forwebsocket"><%= user.getEmail() %></h3>
+<h3 id = "forwebsocket">Your Email: <%= user.getEmail() %></h3>

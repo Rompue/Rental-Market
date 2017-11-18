@@ -38,20 +38,20 @@
   		}
   		socket.onmessage = function(event) {
   			if(event.data == "New Post") {
-  				if(loadedMarket == true) {
-  					document.getElementById("marketplaceHead").style.backgroundColor = "red";
-  	  				addPostList();
-  				}
-  				else if(loadedProfile == true) {
-  					document.getElementById("marketplaceHead").style.backgroundColor = "red";
-  	  				addPostList();
-  				}
+  				var xhttp = new XMLHttpRequest();
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Post", false);
+  		  		xhttp.send();
+  		  		if(xhttp.responseText.trim().length > 0){
+  		  			document.getElementById("newpostnotify").innerHTML = xhttp.responseText;
+  		  		}
   			}
   			else if(event.data = "New Request") {
-  				if(loadedRequest == true) {
-  					document.getElementById("marketplaceHead").style.backgroundColor = "red";
-  					addRequestList();
-  				}
+  				var xhttp = new XMLHttpRequest();
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Request", false);
+  		  		xhttp.send();
+  		  		if(xhttp.responseText.trim().length > 0){
+  		  			document.getElementById("newrequestnotify").innerHTML = xhttp.responseText;
+  		  		}
   			}
   		}
   		socket.onclose = function(event) {
@@ -86,12 +86,13 @@
   		}
 	}
     function requestSetting() {
+    		document.getElementById("newrequestnotify").innerHTML = "";
+    		document.getElementById("marketplaceHead").innerHTML = "Requests";
     		addRequestList();
     		showRequestRight();
     		loadedProfile = false;
         loadedMarket = false;
         loadedRequest = true;
-        document.getElementById("marketplaceHead").innerHTML = "Requests";
         switchHightlight();
     }
     function addRequestList() {
@@ -106,7 +107,7 @@
   		}
 	}
     function showRequestDetail(div) {
-    		document.getElementById("marketplaceHead").style.backgroundColor = "gray";
+    		document.getElementById("newrequestnotify").innerHTML = "";
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "addRequestDetail.jsp?requestID=" + div.id, false);
 		xhttp.send();
@@ -133,7 +134,7 @@
     		switchHightlight();
 	}
     function showDetail(div) {
-    		document.getElementById("marketplaceHead").style.backgroundColor = "gray";
+    		document.getElementById("newpostnotify").innerHTML = "";
     		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "marketPostDetail.jsp?postID=" + div.id, false);
   		xhttp.send();
@@ -150,6 +151,7 @@
     }
     function showPostDetail() {
     		document.getElementById("marketplaceHead").innerHTML = "Market";
+    		document.getElementById("newpostnotify").innerHTML = "";
     		addPostList();
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "marketPostDetail.jsp?postID=-1", false);
@@ -202,48 +204,38 @@
 </head>
 
 <body onload = "populate()">
-<div class="mainpage">
-  <div class="col-sm-2" id="col2">
-    <div id = "profileimage" class="profileimage">
-    </div>
-    <!-- <div class="btn-group-vertical" id="buttons">
-      <button type="button" class="btn btn-default">Profile</button>
-      <button type="button" class="btn btn-default">Market</button>
-      <button type="button" class="btn btn-default">Requests</button>
-    </div> -->
-    <div id = "username">
-    </div>
-    <div id="options">
-      <ul class="nav nav-pills nav-stacked">
-        <li id = "profile"><a href = "#" class="shellLink" onclick = "showProfileDetail()">Profile</a></li>
-        <li id = "market" class="active"><a href="#" class="shellLink" onclick = "showPostDetail()">Market</a></li>
-        <li id = "request"><a href="#" class="shellLink" onclick = "requestSetting()">Requests</a></li>
-      </ul><br>
-      <button id = "newRequestPButton" type="button" class="btn btn-default btn-block">New Request</button><br>
-    </div>
-    <!-- This is where we will apply multithreading -->
-    <div id="notification">
-      <table id="notify" class="table table-bordered">
-         <thead>
-           <tr>
-             <th>Notifications</th>
-           </tr>
-         </thead>
-         <tbody>
-           <tr>
-             <td>asdfhdjkghjjklasjdgkljsadklgjdsaklgjkldsajgklew</td>
-           </tr>
-           <tr>
-             <td>dfakdsjflkadsjglkdsajlkgjdsalkgjdsalkjglkadsjgl</td>
-           </tr>
-           <tr>
-             <td>dfjalksdjglksdajglkdsjalkgjdaslkgjalksgjdlksjgadlsk</td>
-           </tr>
-         </tbody>
-       </table> 
-    </div>
-    <!-- This is where we will apply multithreading -->
-  </div>
+	<div class="mainpage">
+  		<div class="col-sm-2" id="col2">
+    			<div id = "profileimage" class="profileimage">
+    			</div>
+    			<div id = "username">
+    			</div>
+    			<div id = "options">
+    				<ul class="nav nav-pills nav-stacked">
+      				<li id = "profile"><a href = "#" class="shellLink" onclick = "showProfileDetail()">Profile</a></li>
+      				<li id = "market" class="active"><a href="#" class="shellLink" onclick = "showPostDetail()">Market</a></li>
+      				<li id = "request"><a href="#" class="shellLink" onclick = "requestSetting()">Requests</a></li>
+    				</ul><br>
+    				<button id = "newRequestPButton" type="button" class="btn btn-default btn-block">New Request</button>
+    			</div>
+    			<div id = "notification">
+    				<table id = "notify" class = "table table-border">
+    					<thead>
+    						<tr>
+    							<th>Notifications</th>
+    						</tr>
+    					</thead>
+    					<tbody>
+    						<tr>
+    							<td id = "newpostnotify"></td>
+    						</tr>
+    						<tr>
+    							<td id = "newrequestnotify"></td>
+    						</tr>
+    					</tbody>
+    				</table>
+    			</div>
+  		</div>
 
   <!-- Dynamically create these cells -->
   <div class="col-sm-3" id="col3">
