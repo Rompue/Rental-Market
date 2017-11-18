@@ -16,7 +16,7 @@
             			<img src="<%= lender.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
             			<span>[Ongoing] [Borrowed From] <%= lender.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getDateCreated();
+					String date = "Created on " + rmRequest.getRequestDate();
 %>
            			<span><%= date %></span>
           		</div>
@@ -40,7 +40,7 @@
             			<img src="<%= borrower.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
             			<span>[Ongoing] [Lent To] <%= borrower.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getDateCreated();
+					String date = "Created on " + rmRequest.getRequestDate();
 %>
            			<span><%= date %></span>
           		</div>
@@ -64,7 +64,7 @@
             			<img src="<%= lender.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
             			<span>[Completed] [Borrowed From] <%= lender.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getDateCreated();
+					String date = "Created on " + rmRequest.getRequestDate();
 %>
            			<span><%= date %></span>
           		</div>
@@ -88,7 +88,7 @@
             			<img src="<%= borrower.getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
             			<span>[Completed] [Lent To] <%= borrower.getFullName() %></span>
 <%
-					String date = "Created on " + rmRequest.getDateCreated();
+					String date = "Created on " + rmRequest.getRequestDate();
 %>
            			<span><%= date %></span>
           		</div>
