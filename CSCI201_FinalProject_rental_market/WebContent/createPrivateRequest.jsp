@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="database.*" %>
-<%@ page import = "java.util.Date" %>
+<%@ page import = "java.sql.Date" %>
 <%
 	String username = request.getParameter("username");
 	String itemname = request.getParameter("itemname");
@@ -12,7 +12,7 @@
 	Date dueDate = new Date(year, month, day);
 	RMUser user = (RMUser)request.getSession().getAttribute("user");
 	try {
-		RMDatabase.sendRequestToUser(username, user.getUserID(), itemname, dueDate);
+		RMDatabase.sendRequestToUser(user.getUserID(), username, itemname, dueDate);
 	} catch (RMCreateRequestException rmcre) {
 		if(rmcre.getCode() == 1) {
 %>
@@ -20,6 +20,11 @@
 <%
 		}
 		if(rmcre.getCode() == 2) {
+%>
+			<font color = "red"><strong><%= rmcre.getMessage() %></strong></font>
+<%
+		}
+		if(rmcre.getCode() == 3) {
 %>
 			<font color = "red"><strong><%= rmcre.getMessage() %></strong></font>
 <%
