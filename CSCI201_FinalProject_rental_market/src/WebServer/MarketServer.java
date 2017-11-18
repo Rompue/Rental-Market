@@ -36,7 +36,7 @@ public class MarketServer {
 			if(index != -1) {
 				Session s = sessionVector.get(index);
 				try {
-					s.getBasicRemote().sendText(message);
+					s.getBasicRemote().sendText("New Request");
 				} catch (IOException ioe) {
 					System.out.println("ioe: " + ioe.getMessage());
 					close(session);
