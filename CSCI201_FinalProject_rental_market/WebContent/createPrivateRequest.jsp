@@ -21,6 +21,7 @@
 	}
 	if(checkNull == 1) {
 	int year = Integer.parseInt(returnby.substring(0, 4));
+	year -= 1900;
 	int month = Integer.parseInt(returnby.substring(5, 7));
 	int day = Integer.parseInt(returnby.substring(8));
 	Date dueDate = new Date(year, month, day);

@@ -47,6 +47,12 @@
   	  				addPostList();
   				}
   			}
+  			else if(event.data = "New Request") {
+  				if(loadedRequest == true) {
+  					document.getElementById("marketplaceHead").style.backgroundColor = "red";
+  					addRequestList();
+  				}
+  			}
   		}
   		socket.onclose = function(event) {
   			
@@ -100,7 +106,7 @@
   		}
 	}
     function showRequestDetail(div) {
-    		document.getElementById("marketplaceHead").style.backgroundColor = "grey";
+    		document.getElementById("marketplaceHead").style.backgroundColor = "gray";
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "addRequestDetail.jsp?requestID=" + div.id, false);
 		xhttp.send();
@@ -127,6 +133,7 @@
     		switchHightlight();
 	}
     function showDetail(div) {
+    		document.getElementById("marketplaceHead").style.backgroundColor = "gray";
     		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "marketPostDetail.jsp?postID=" + div.id, false);
   		xhttp.send();
