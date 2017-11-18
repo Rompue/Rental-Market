@@ -9,3 +9,17 @@
 #buttons {
   width: 100%;
 }
+#notify thead tr th {
+	text-align: center;
+}
+#notify tbody tr td {
+	word-wrap: break-word;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+}
+#notification {
+	height: 400px;
+	overflow: auto;
+}
