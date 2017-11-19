@@ -228,7 +228,7 @@ public class RMDatabase {
 		
 		// Get all posts
 		try {
-			ps = conn.prepareStatement("SELECT * FROM Request WHERE lenderID=? AND deleted=0;");
+			ps = conn.prepareStatement("SELECT * FROM Request WHERE lenderID=? AND deleted=0 AND postID IS NULL;");
 			ps.setInt(1, lenderID);
 			rs = ps.executeQuery();
 			
@@ -271,7 +271,7 @@ public class RMDatabase {
 		
 		// Get all posts
 		try {
-			ps = conn.prepareStatement("SELECT * FROM Request WHERE borrowerID=? AND deleted=0;");
+			ps = conn.prepareStatement("SELECT * FROM Request WHERE borrowerID=? AND deleted=0 AND postID IS NULL;");
 			ps.setInt(1, borrowerID);
 			rs = ps.executeQuery();
 			
