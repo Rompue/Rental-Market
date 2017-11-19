@@ -36,7 +36,7 @@ public class MarketServer {
 			if(index != -1) {
 				Session s = sessionVector.get(index);
 				try {
-					s.getBasicRemote().sendText("New Request");
+					s.getBasicRemote().sendText("Request Update");
 				} catch (IOException ioe) {
 					System.out.println("ioe: " + ioe.getMessage());
 					close(session);
@@ -44,7 +44,7 @@ public class MarketServer {
 			}
 		}
 		else if(actionType.equals("ActionD")) {
-			notifyNewPost("New Post", session);
+			notifyNewPost("Post Update", session);
 		}
 		else if(actionType.equals("ActionE")) {
 			int index = userEmails.indexOf(message.substring(7));
@@ -70,7 +70,30 @@ public class MarketServer {
 				}
 			}
 		}
-		
+		else if(actionType.equals("ActionG")) {
+			int index = userEmails.indexOf(message.substring(7));
+			if(index != -1) {
+				Session s = sessionVector.get(index);
+				try {
+					s.getBasicRemote().sendText("New Post Request");
+				} catch (IOException ioe) {
+					System.out.println("ioe: " + ioe.getMessage());
+					close(session);
+				}
+			}
+		}
+		else if(actionType.equals("ActionH")) {
+			int index = userEmails.indexOf(message.substring(7));
+			if(index != -1) {
+				Session s = sessionVector.get(index);
+				try {
+					s.getBasicRemote().sendText("New Rating");
+				} catch (IOException ioe) {
+					System.out.println("ioe: " + ioe.getMessage());
+					close(session);
+				}
+			}
+		}
 	}
 	public void notifyNewPost(String message, Session session) {
 		try {

@@ -32,26 +32,34 @@
         socket.close();
     };
   	function connectToServer() {
-  		socket = new WebSocket("ws://localhost:8080/CSCI201_FinalProject_rental_market/mks");
+  		socket = new WebSocket("ws://localhost:8080/Project/mks");
   		socket.onopen = function(event) {
   			socket.send("ActionA" + document.getElementById("usernameheader").innerHTML);
   		}
   		socket.onmessage = function(event) {
-  			if(event.data == "New Post") {
+  			if(event.data == "Post Update") {
   				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Post", false);
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Post Update", false);
   		  		xhttp.send();
   		  		if(xhttp.responseText.trim().length > 0){
   		  			document.getElementById("newpostnotify").innerHTML = xhttp.responseText;
   		  		}
+  		  		if(loadedMarket == true) {
+  		  			addPostList();
+  		  			showPostDetail();
+  		  		}
   			}
-  			else if(event.data == "New Request") {
+  			else if(event.data == "Request Update") {
   				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Request", false);
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Request Update", false);
   		  		xhttp.send();
   		  		if(xhttp.responseText.trim().length > 0){
   		  			document.getElementById("newrequestnotify").innerHTML = xhttp.responseText;
   		  		}
+  		  		if(loadedRequest == true) {
+  		  			addRequestList();
+  	    				showRequestRight();
+		  		}
   			}
   			else if(event.data == "New Post Comment") {
   				var xhttp = new XMLHttpRequest();
@@ -67,6 +75,25 @@
   		  		xhttp.send();
   		  		if(xhttp.responseText.trim().length > 0){
   		  			document.getElementById("newrequestcommentnotify").innerHTML = xhttp.responseText;
+  		  		}
+  			}
+  			else if(event.data == "New Post Request") {
+  				var xhttp = new XMLHttpRequest();
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Post Request", false);
+  		  		xhttp.send();
+  		  		if(xhttp.responseText.trim().length > 0){
+  		  			document.getElementById("newpostrequestnotify").innerHTML = xhttp.responseText;
+  		  		}
+  			}
+  			else if(event.data == "New Rating") {
+  				var xhttp = new XMLHttpRequest();
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Rating", false);
+  		  		xhttp.send();
+  		  		if(xhttp.responseText.trim().length > 0){
+  		  			if(loadedProfile == true) {
+  		  				showProfileDetail()
+	  				}
+  		  			document.getElementById("newratingnotify").innerHTML = xhttp.responseText;
   		  		}
   			}
   		}
@@ -154,6 +181,7 @@
     function showDetail(div) {
     		document.getElementById("newpostcommentnotify").innerHTML = "";
     		document.getElementById("newpostnotify").innerHTML = "";
+    		document.getElementById("newpostrequestnotify").innerHTML = "";
     		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "marketPostDetail.jsp?postID=" + div.id, false);
   		xhttp.send();
@@ -172,6 +200,7 @@
     		document.getElementById("marketplaceHead").innerHTML = "Market";
     		document.getElementById("newpostnotify").innerHTML = "";
     		document.getElementById("newpostcommentnotify").innerHTML = "";
+    		document.getElementById("newpostrequestnotify").innerHTML = "";
     		addPostList();
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "marketPostDetail.jsp?postID=-1", false);
@@ -188,6 +217,7 @@
     		switchHightlight();
 	}
     function showProfileDetail() {
+    		document.getElementById("newratingnotify").innerHTML = "";
     		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "profileDetail.jsp", false);
   		xhttp.send();
@@ -227,6 +257,88 @@
   		else {
   			document.getElementById("userComment").value = "Please Enter a Comment";
   			return false;
+  		}
+	}
+	function acceptPostRequest(postID, requestID, userEmail) {
+		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "acceptPostRequest.jsp?postID=" + postID + "&requestID=" + requestID, false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			document.getElementById("acceptRequestError").innerHTML = xhttp.responseText;
+  		}
+  		else {
+  			socket.send("ActionD");
+  			socket.send("ActionC" + userEmail);
+  			xhttp.open("post", "marketNotification.jsp?notifyType=New Request", false);
+		  	xhttp.send();
+		  	if(xhttp.responseText.trim().length > 0){
+		  		document.getElementById("newrequestnotify").innerHTML = xhttp.responseText;
+		  	}
+  			else if(loadedRequest == true){
+  				addRequestList();
+  			}
+  		}
+	}
+	function sendRequestToPost(postID, userID, userEmail) {
+		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "sendPostRequest.jsp?postID=" + postID + "&userID=" + userID, false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			document.getElementById("sendRequestError").innerHTML = xhttp.responseText;
+  		}
+  		else {
+  			socket.send("ActionG" + userEmail);
+  			if(loadedMarket == true) {
+  				addPostList();
+  		  		showPostDetail();
+  			}
+  		}
+	}
+	function deleteMarketPost(postID) {
+		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "deletePostFromMarket.jsp?postID=" + postID, false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			
+  		}
+  		else {
+  			socket.send("ActionD");
+  		}
+	}
+	function deleteRequest(requestID, userEmail) {
+		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "deleteRequest.jsp?requestID=" + requestID, false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			
+  		}
+  		else {
+  			socket.send("ActionC" + userEmail);
+  			if(loadedRequest == true) {
+		  		addRequestList();
+	    			showRequestRight();
+	  		}
+  		}
+	}
+	function rateRequest(requestID, userEmail) {
+		var xhttp = new XMLHttpRequest();
+		if(document.getElementById("positiveCheckBox").checked) {
+			xhttp.open("post", "completeRequest.jsp?requestID=" + requestID + "&positiveRating=true", false);
+		}
+		else {
+			xhttp.open("post", "completeRequest.jsp?requestID=" + requestID + "&positiveRating=false", false);
+		}
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			
+  		}
+  		else {
+  			socket.send("ActionC" + userEmail);
+  			socket.send("ActionH" + userEmail);
+  			if(loadedRequest == true) {
+		  		addRequestList();
+	    			showRequestRight();
+	  		}
   		}
 	}
     // This will change the highlights depending on the content loaded
@@ -286,6 +398,12 @@
     						</tr>
     						<tr>
     							<td id = "newrequestcommentnotify"></td>
+    						</tr>
+    						<tr>
+    							<td id = "newpostrequestnotify"></td>
+    						</tr>
+    						<tr>
+    							<td id = "newratingnotify"></td>
     						</tr>
     					</tbody>
     				</table>

@@ -9,15 +9,15 @@
 	ArrayList<RMRequest> requestList = RMDatabase.getRequestsForBorrower(user.getUserID());
 	if(id == -1) {
 		if(requestList.size() > 0) {
-			id = requestList.get(0).getPostID();
+			id = requestList.get(0).getRequestID();
 		}
-		if(requestList.size() == 0) {
-			requestList = RMDatabase.getRequestsForLender(user.getUserID());
-			if(requestList.size() > 0) {
-				id = requestList.get(0).getPostID();
-			}
-			requestList = RMDatabase.getRequestsForBorrower(user.getUserID());
+	}
+	if(id == -1) {
+		requestList = RMDatabase.getRequestsForLender(user.getUserID());
+		if(requestList.size() > 0) {
+			id = requestList.get(0).getRequestID();
 		}
+		requestList = RMDatabase.getRequestsForBorrower(user.getUserID());
 	}
 	RMRequest rmRequest = null;
 	for(RMRequest temp : requestList) {
@@ -63,7 +63,6 @@
             <div class="panel-body">
             		<p><%= rmRequest.getItemName() %></p>
             		<p>Until: <%= rmRequest.getDueDate() %>
-              	<button type="button" class="btn">Delete Request</button>
               	<hr>
               	<div class="panel">
                 		<div class="panel-heading">
@@ -74,27 +73,21 @@
 					ArrayList<RMChatMessage> comments = rmRequest.getComments();
 					for(RMChatMessage comment : comments) {
 %>
-					<div class="panel">
-                        <div class="panel-heading">
-                          <img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-                          <span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> :</span>
-                        </div>
-                        <div class="panel-body">
-                          <span class="well well-sm message">
-                            <span><%= comment.getMessage() %></span>
-                          </span><br>
-                        </div>
-                  </div>
+						<div class = "panel">
+							<div class = "panel-heading">
+								<img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
+								<span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> : </span>
+                    			</div>
+                    			<div class = "panel-body">
+                    				<span class = "well well-sm message">
+                    					<span><%= comment.getMessage() %></span>
+                    				</span><br>
+                    			</div>
+                    		</div>
 <%
 					}
 %>
 					</div>
-					<div class="input-group">
-                        	<input id = "userComment" name = "userComment" type="text" class="form-control">
-                        	<div class="btn-group">
-                        		<button class="btn btn-default" type="submit" onclick = "updateRequestComment('<%= rmRequest.getRequestID() %>', '<%= user.getUserID() %>', '<%= otherUser.getEmail() %>')">Send</button>
-          				</div>
-                     </div>
               	</div>
             	</div>
       </div>
@@ -125,8 +118,20 @@
             <div class="panel-body">
             		<p><%= rmRequest.getItemName() %></p>
             		<p>Until: <%= rmRequest.getDueDate() %>
-              	<button type="button" class="btn">Delete Request</button>
               	<hr>
+<%
+				if(rmRequest.getLenderID() == user.getUserID()) {
+%>
+              		<div class="btn-group">
+              			Positive Experience <input type = "checkbox" id = "positiveCheckBox" value = "true" /><br>
+                			<button class="btn btn-default" type="button" onclick = "rateRequest('<%= rmRequest.getRequestID() %>', '<%= otherUser.getEmail() %>')">Complete Request</button>
+          			</div>
+              		<div class="btn-group">
+                			<button class="btn btn-default" type="button" onclick = "deleteRequest('<%= rmRequest.getRequestID() %>', '<%= otherUser.getEmail() %>')">Delete Request</button>
+          			</div>
+<%
+				}
+%>
               	<div class="panel">
                 		<div class="panel-heading">
                 			<span><b>Leave a Comment</b></span>
@@ -136,17 +141,17 @@
 					ArrayList<RMChatMessage> comments = rmRequest.getComments();
 					for(RMChatMessage comment : comments) {
 %>
-				<div class="panel">
-                        <div class="panel-heading">
-                          <img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-                          <span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> :</span>
-                        </div>
-                        <div class="panel-body">
-                          <span class="well well-sm message">
-                            <span><%= comment.getMessage() %></span>
-                          </span><br>
-                        </div>
-                  </div>
+						<div class = "panel">
+							<div class = "panel-heading">
+								<img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
+								<span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> : </span>
+                    			</div>
+                    			<div class = "panel-body">
+                    				<span class = "well well-sm message">
+                    					<span><%= comment.getMessage() %></span>
+                    				</span><br>
+                    			</div>
+                    		</div>
 <%
 					}
 %>

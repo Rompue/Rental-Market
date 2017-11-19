@@ -34,6 +34,47 @@
         				<p>Until <%= end %></p>
         				<p>Willing to Pay: <%= post.getBorrowAmount() %></p>
         				<hr>
+<%
+					int sameUser = -1;
+					if(currUser.getUserID() == user.getUserID()) {
+						sameUser = 1;
+					}
+					if(sameUser == 1) {
+%>
+          				<div class="btn-group">
+                        		<button class="btn btn-default" type="button" onclick = "deleteMarketPost('<%= post.getPostID() %>')">Delete</button>
+          				</div>
+						<table>
+							<tr>
+								<th>Request Received</th>
+							</tr>
+<%
+						ArrayList<RMRequest> requests = post.getRequests();
+						for(RMRequest rmRequest : requests) {
+%>
+							<tr>
+								<td>
+									Received From: <%= (RMDatabase.getUserForID(rmRequest.getLenderID()).getFullName()) %><br>
+									<button class="btn btn-default" type="button" onclick = "acceptPostRequest('<%= post.getPostID() %>', '<%= rmRequest.getRequestID() %>', '<%= RMDatabase.getUserForID(rmRequest.getLenderID()).getEmail() %>')">Accept</button>
+								</td>
+							</tr>
+<%
+						}
+%>
+						</table>
+						<div id = "acceptRequestError"></div>
+<%
+					}
+					if(sameUser == -1) {
+%>
+						<div class="btn-group">
+                        		<button class="btn btn-default" type="button" onclick = "sendRequestToPost('<%= post.getPostID() %>', '<%= currUser.getUserID() %>', '<%= user.getEmail() %>')">Send Request</button>
+          				</div>
+          				<div id = "sendRequestError"></div>
+<%
+					}
+%>
+        				
 				<div class="panel">
                 		<div class="panel-heading">
                 			<span><b>Leave a Comment</b></span>
@@ -43,11 +84,17 @@
 					ArrayList<RMChatMessage> comments = post.getComments();
 					for(RMChatMessage comment : comments) {
 %>
-						<span class="well well-sm message">
-							<img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-							<span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> : </span><br>
-                    			<span><%= comment.getMessage() %></span>
-                    		</span><br>
+						<div class = "panel">
+							<div class = "panel-heading">
+								<img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
+								<span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> : </span>
+                    			</div>
+                    			<div class = "panel-body">
+                    				<span class = "well well-sm message">
+                    					<span><%= comment.getMessage() %></span>
+                    				</span><br>
+                    			</div>
+                    		</div>
 <%
 					}
 %>
