@@ -131,6 +131,7 @@ public class RMDatabase {
 		}
 		
 		notificationThreads.add(new RMNotificationThread(user.getUserID()));
+		RMDatabase.subscribeToNotifications(user.getUserID());
 		return user;
 	}
 	
@@ -432,7 +433,7 @@ public class RMDatabase {
 		}
 	}
 	
-	public void subscribeToNotifications(int userID) {
+	public static void subscribeToNotifications(int userID) {
 		for (RMNotificationThread rmnt : notificationThreads) {
 			if (rmnt.getUserID() == userID) {
 				rmnt.startReceivingNotifications();
@@ -441,7 +442,7 @@ public class RMDatabase {
 		}
 	}
 	
-	public void unsubscribeToNotifications(int userID) {
+	public static void unsubscribeToNotifications(int userID) {
 		for (RMNotificationThread rmnt : notificationThreads) {
 			if (rmnt.getUserID() == userID) {
 				rmnt.stopReceivingNotifications();
@@ -449,7 +450,7 @@ public class RMDatabase {
 		}
 	}
 	
-	public Vector<RMNotification> getNotificationsForUser(int userID) {
+	public static Vector<RMNotification> getNotificationsForUser(int userID) {
 		for (RMNotificationThread rmnt : notificationThreads) {
 			if (rmnt.getUserID() == userID) {
 				return rmnt.getNotifications();
