@@ -20,11 +20,16 @@
 	text-decoration: underline;
 }
 
-
+#col3 {
+	height: 100vh;
+	display: flex;
+	flex-flow: column;
+	width: 25%;
+}
 
 #currRequest {
-	height: 612px;
-	overflow: scroll;
+	flex: 1 1 auto;
+	overflow-y: auto;
 }
 
 

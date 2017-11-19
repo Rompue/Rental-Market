@@ -79,7 +79,7 @@
   		xhttp.open("post", "addUsername.jsp", false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("username").innerHTML = xhttp.responseText;
+  			document.getElementById("UserNameField").innerHTML = xhttp.responseText;
   		}
 	}
     function addPostList() {
