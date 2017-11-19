@@ -17,4 +17,9 @@
 		<font color = "red"><strong>New Comment on Post</strong></font>
 <%
 	}
+	if(notifyType.equals("Request Comment")) {
+%>
+		<font color = "red"><strong>New Comment on Request</strong></font>
+<%
+	}
 %>

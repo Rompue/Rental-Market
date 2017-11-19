@@ -58,6 +58,18 @@ public class MarketServer {
 				}
 			}
 		}
+		else if(actionType.equals("ActionF")) {
+			int index = userEmails.indexOf(message.substring(7));
+			if(index != -1) {
+				Session s = sessionVector.get(index);
+				try {
+					s.getBasicRemote().sendText("New Request Comment");
+				} catch (IOException ioe) {
+					System.out.println("ioe: " + ioe.getMessage());
+					close(session);
+				}
+			}
+		}
 		
 	}
 	public void notifyNewPost(String message, Session session) {
