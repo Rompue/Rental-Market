@@ -232,7 +232,7 @@ public class RMDatabase {
 			while (rs.next()) {
 				int requestID = rs.getInt("requestID");
 				String itemName = rs.getString("itemName");
-				Date dateCreated = rs.getDate("dateCreated");
+				Date requestDate = rs.getDate("requestDate");
 				Date dueDate = rs.getDate("dueDate");
 				boolean completed = rs.getBoolean("completed");
 				boolean deleted = rs.getBoolean("deleted");
@@ -241,7 +241,7 @@ public class RMDatabase {
 				int postID = rs.getInt("postID");
 				
 				// Adds to list of posts
-				requests.add(new RMRequest(requestID, itemName, dateCreated, dueDate, completed, deleted, rating, borrowerID, lenderID, postID));
+				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID, postID));
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
@@ -356,11 +356,11 @@ public class RMDatabase {
 		// Attempt to create new request
 		try {
 			if (postID != 0) {
-				ps = conn.prepareStatement("INSERT INTO Request (itemName, dateCreated, dueDate, completed, deleted, rating, borrowerID, lenderID, postID) VALUES (?, ?, ?, 0, 0, 0, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+				ps = conn.prepareStatement("INSERT INTO Request (itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID, postID) VALUES (?, ?, ?, 0, 0, 0, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 				ps.setInt(6, postID);
 			}
 			else {
-				ps = conn.prepareStatement("INSERT INTO Request (itemName, dateCreated, dueDate, completed, deleted, rating, borrowerID, lenderID) VALUES (?, ?, ?, 0, 0, 0, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+				ps = conn.prepareStatement("INSERT INTO Request (itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID) VALUES (?, ?, ?, 0, 0, 0, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 			}
 			ps.setString(1, itemName);
 			ps.setDate(2, new Date(System.currentTimeMillis()));
@@ -372,7 +372,8 @@ public class RMDatabase {
 			// Gets the generated requestID so it can create a new chat
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) { // Should always return true
-				int requestID = rs.getInt(1);				
+				int requestID = rs.getInt(1);
+				rs.close();
 				ps.close();
 				// Creates a new chat
 				ps = conn.prepareStatement("INSERT INTO Chat (requestID) VALUES (?);");
@@ -391,7 +392,31 @@ public class RMDatabase {
 		}
 	}
 	
-	public static void sendRequestToUser(int lenderID, int borrowerID, String itemName, Date dueDate) throws RMCreateRequestException {
-		createNewRequest(lenderID, borrowerID, itemName, dueDate, 0);
+	public static void sendRequestToUser(int lenderID, String borrowerEmail, String itemName, Date dueDate) throws RMCreateRequestException {
+		// Tries to get the userID for the borrower's email address
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement("SELECT userID FROM Person WHERE email=?;");
+			ps.setString(1, borrowerEmail);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) { // Found a user, get their userID
+				int borrowerID = rs.getInt("userID");
+				createNewRequest(lenderID, borrowerID, itemName, dueDate, 0);
+			}
+			else { // No user with this email exists
+				throw new RMCreateRequestException("No user with email " + borrowerEmail + " exists in the database", 3);
+			}
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
 	}
 }

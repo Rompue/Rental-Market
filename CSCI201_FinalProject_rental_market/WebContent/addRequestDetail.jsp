@@ -55,7 +55,7 @@
 %>
             		<span>[Completed] <%= statusStr %></span>
 <%
-				String date = "Created on " + rmRequest.getDateCreated();
+				String date = "Created on " + rmRequest.getRequestDate();
 %>
               	<span><%= date %></span>
             </div>
@@ -105,7 +105,7 @@
 %>
             		<span>[Ongoing] <%= statusStr %></span>
 <%
-				String date = "Created on " + rmRequest.getDateCreated();
+				String date = "Created on " + rmRequest.getRequestDate();
 %>
               	<span><%= date %></span>
             </div>

@@ -356,11 +356,11 @@ public class RMDatabase {
 		// Attempt to create new request
 		try {
 			if (postID != 0) {
-				ps = conn.prepareStatement("INSERT INTO Request (itemName, dateCreated, dueDate, completed, deleted, rating, borrowerID, lenderID, postID) VALUES (?, ?, ?, 0, 0, 0, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+				ps = conn.prepareStatement("INSERT INTO Request (itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID, postID) VALUES (?, ?, ?, 0, 0, 0, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 				ps.setInt(6, postID);
 			}
 			else {
-				ps = conn.prepareStatement("INSERT INTO Request (itemName, dateCreated, dueDate, completed, deleted, rating, borrowerID, lenderID) VALUES (?, ?, ?, 0, 0, 0, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+				ps = conn.prepareStatement("INSERT INTO Request (itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID) VALUES (?, ?, ?, 0, 0, 0, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 			}
 			ps.setString(1, itemName);
 			ps.setDate(2, new Date(System.currentTimeMillis()));
