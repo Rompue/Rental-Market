@@ -154,6 +154,8 @@ public class RMPost {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());
 			}
 		}
+		
+		RMDatabase.sendNotificationToUser(userID, "Someone commented on your post.");
 	}
 	
 	public void deletePost() {
