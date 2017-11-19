@@ -156,6 +156,13 @@ public class RMRequest {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());
 			}
 		}
+		
+		if (lenderID == userID) {
+			RMDatabase.sendNotificationToUser(borrowerID, "New comment on your request from the lender.");
+		}
+		else if (borrowerID == userID) {
+			RMDatabase.sendNotificationToUser(lenderID, "New comment on your request from the borrower.");
+		}
 	}
 	
 	public void deleteRequest() {
@@ -215,7 +222,7 @@ public class RMRequest {
 			// Deletes all the other requests
 			for (RMRequest r : offeredRequests) {
 				if (r.getRequestID() == getRequestID()) continue;
-				else r.deleteRequest();
+				else r.declineRequest();
 			}
 			
 			// Completes this post
@@ -237,11 +244,14 @@ public class RMRequest {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());
 			}
 		}
+		
+		RMDatabase.sendNotificationToUser(lenderID, "Your request to a marketplace post was accepted.");
 	}
 	
 	public void declineRequest() throws RMRespondToRequestException {
 		if (postID == 0) throw new RMRespondToRequestException("Attempted to decline request that was not part of a post", 1);
 		deleteRequest();
+		RMDatabase.sendNotificationToUser(lenderID, "Your request to a marketplace post was declined.");
 	}
 	
 	public void completeRequest(boolean positiveRating) {
@@ -266,5 +276,7 @@ public class RMRequest {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());
 			}
 		}
+		
+		RMDatabase.sendNotificationToUser(borrowerID, "One of your requests has been completed with a " + (positiveRating ? "positive" : "negative") + " rating.");
 	}
 }
