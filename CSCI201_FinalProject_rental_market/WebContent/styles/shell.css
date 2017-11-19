@@ -1,15 +1,33 @@
 /* This is part of the shell */
+
+
+/*left column*/
 .profileimage {
-	margin-left: 40px;
-	padding-top: 15px;
+	text-align: center;
+	padding-top: 20px;
 }
+
+#UserNameField {
+	text-align: center;
+}
+
+#usernameheader::before {
+	content: "#";
+}
+
+#usernameheader {
+	color: gray;
+	text-decoration: underline;
+}
+
+
+
 #currRequest {
 	height: 612px;
 	overflow: scroll;
 }
-.username {
-	margin-left: 32px;
-}
+
+
 #buttons {
   width: 100%;
 }

@@ -32,7 +32,7 @@
         socket.close();
     };
   	function connectToServer() {
-  		socket = new WebSocket("ws://localhost:8080/Project/mks");
+  		socket = new WebSocket("ws://localhost:8080/CSCI201_FinalProject_rental_market/mks");
   		socket.onopen = function(event) {
   			socket.send("ActionA" + document.getElementById("usernameheader").innerHTML);
   		}
@@ -63,7 +63,7 @@
   			}
   		}
   		socket.onclose = function(event) {
-  			
+
   		}
   	}
     function addImage() {
@@ -231,7 +231,7 @@
   		<div class="col-sm-2" id="col2">
     			<div id = "profileimage" class="profileimage">
     			</div>
-    			<div id = "username">
+    			<div id = "UserNameField">
     			</div>
     			<div id = "options">
     				<ul class="nav nav-pills nav-stacked">

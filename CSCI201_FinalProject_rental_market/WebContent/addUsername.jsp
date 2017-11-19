@@ -5,5 +5,4 @@
 	RMUser user = (RMUser)request.getSession().getAttribute("user");
 %>
 <h3 class="username"><%= user.getFullName() %></h3>
-<br />
-<div id = "usernameheader"><%= user.getEmail() %></div>
+<h6 id = "usernameheader"><%= user.getEmail() %></h6>
