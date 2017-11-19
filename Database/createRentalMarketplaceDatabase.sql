@@ -52,6 +52,16 @@ CREATE TABLE Request (
     FOREIGN KEY fk3(postID) REFERENCES Post(postID)
 );
 
+CREATE TABLE Notification (
+	notificationID INT(11) PRIMARY KEY AUTO_INCREMENT,
+    text VARCHAR(255) NOT NULL,
+    notificationDate DATETIME NOT NULL,
+    active TINYINT(1) NOT NULL,
+    
+	userID INT(11) NOT NULL,
+    FOREIGN KEY fk1(userID) REFERENCES Person(userID)
+);
+
 CREATE TABLE Chat (
 	chatID INT(11) PRIMARY KEY AUTO_INCREMENT,
     
@@ -62,7 +72,7 @@ CREATE TABLE Chat (
 );
 
 CREATE TABLE ChatMessage (
-    message VARCHAR(10000) NOT NULL,
+    message VARCHAR(255) NOT NULL,
     dateSent DATETIME NOT NULL,
     
     chatID INT(11) NOT NULL,

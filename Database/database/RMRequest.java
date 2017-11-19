@@ -157,4 +157,114 @@ public class RMRequest {
 			}
 		}
 	}
+	
+	public void deleteRequest() {
+		PreparedStatement ps = null;
+		
+		try {
+			// Deletes this request
+			ps = RMDatabase.conn.prepareStatement("UPDATE Request SET deleted=? WHERE requestID=?;");
+			ps.setBoolean(1, true);
+			ps.setInt(2, requestID);
+			ps.executeUpdate();
+			this.deleted = true;
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
+	
+	public void acceptRequest() throws RMRespondToRequestException {
+		if (postID == 0) throw new RMRespondToRequestException("Attempted to accept request that was not part of a post", 1);
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			// Gets the post with this postID
+			ps = RMDatabase.conn.prepareStatement("SELECT * FROM Post WHERE postID=?;");
+			ps.setInt(1, postID);
+			rs = ps.executeQuery();
+			
+			RMPost p = null;
+			
+			if (rs.next()) { // Should always return true
+				String pItemName = rs.getString("itemName");
+				String pPostDescription = rs.getString("postDescription");
+				String pBorrowAmount = rs.getString("borrowAmount");
+				Date pPostDate = rs.getDate("postDate");
+				Date pDueDate = rs.getDate("dueDate");
+				boolean pCompleted = rs.getBoolean("completed");
+				boolean pDeleted = rs.getBoolean("deleted");
+				int pUserID = rs.getInt("userID");
+				
+				p = new RMPost(postID, pItemName, pPostDescription, pBorrowAmount, pPostDate, pDueDate, pCompleted, pDeleted, pUserID);
+				
+				rs.close();
+				rs = null;
+				ps.close();
+			}
+			
+			ArrayList<RMRequest> offeredRequests = p.getRequests();
+			
+			// Deletes all the other requests
+			for (RMRequest r : offeredRequests) {
+				if (r.getRequestID() == getRequestID()) continue;
+				else r.deleteRequest();
+			}
+			
+			// Completes this post
+			p.completePost();
+			
+			// Sets this request as a regular request by no longer associating it with a post
+			ps = RMDatabase.conn.prepareStatement("UPDATE Request SET postID=? WHERE requestID=?;");
+			ps.setNull(1, java.sql.Types.INTEGER);
+			ps.setInt(2, requestID);
+			ps.executeUpdate();
+			
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
+	
+	public void declineRequest() throws RMRespondToRequestException {
+		if (postID == 0) throw new RMRespondToRequestException("Attempted to decline request that was not part of a post", 1);
+		deleteRequest();
+	}
+	
+	public void completeRequest(boolean positiveRating) {
+		// Updates this user's rating
+		RMUser borrower = RMDatabase.getUserForID(borrowerID);
+		borrower.addRating(positiveRating);
+		
+		PreparedStatement ps = null;
+		try {
+			// Completes this request
+			ps = RMDatabase.conn.prepareStatement("UPDATE Request SET completed=?, rating=? WHERE requestID=?;");
+			ps.setBoolean(1, true);
+			ps.setInt(2, positiveRating ? +1 : -1);
+			ps.executeUpdate();
+			this.completed = true;
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
 }

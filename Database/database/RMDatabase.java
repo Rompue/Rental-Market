@@ -8,11 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class RMDatabase {
 	
 	public static Connection conn = null;
 	private static boolean databaseInitialized = false;
+	
+	private static Vector<RMNotificationThread> notificationThreads = new Vector<RMNotificationThread>();
 	
 	public static void initializeDatabase() {
 		if (!databaseInitialized) {
@@ -127,6 +130,7 @@ public class RMDatabase {
 			}
 		}
 		
+		notificationThreads.add(new RMNotificationThread(user.getUserID()));
 		return user;
 	}
 	
@@ -390,6 +394,14 @@ public class RMDatabase {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());
 			}
 		}
+		
+		// Sends notifications
+		if (postID == 0) {
+			RMDatabase.sendNotificationToUser(borrowerID, "Your post has a new request offer.");
+		}
+		else {
+			RMDatabase.sendNotificationToUser(borrowerID, "Your have a new request.");
+		}
 	}
 	
 	public static void sendRequestToUser(int lenderID, String borrowerEmail, String itemName, Date dueDate) throws RMCreateRequestException {
@@ -413,6 +425,55 @@ public class RMDatabase {
 		} finally {
 			try {
 				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
+	
+	public void subscribeToNotifications(int userID) {
+		for (RMNotificationThread rmnt : notificationThreads) {
+			if (rmnt.getUserID() == userID) {
+				rmnt.startReceivingNotifications();
+				break;
+			}
+		}
+	}
+	
+	public void unsubscribeToNotifications(int userID) {
+		for (RMNotificationThread rmnt : notificationThreads) {
+			if (rmnt.getUserID() == userID) {
+				rmnt.stopReceivingNotifications();
+			}
+		}
+	}
+	
+	public Vector<RMNotification> getNotificationsForUser(int userID) {
+		for (RMNotificationThread rmnt : notificationThreads) {
+			if (rmnt.getUserID() == userID) {
+				return rmnt.getNotifications();
+			}
+		}
+		
+		return new Vector<RMNotification>();
+	}
+	
+	static void sendNotificationToUser(int userID, String text) {
+		// Initial null SQL variables
+		PreparedStatement ps = null;		
+		// Adds a notification to the database
+		try {
+			ps = conn.prepareStatement("INSERT INTO Notification (userID, notificationDate, text, active) VALUES (?, ?, ?, ?);");
+			ps.setInt(1, userID);
+			ps.setDate(2, new Date(System.currentTimeMillis()));
+			ps.setString(3, text);
+			ps.setBoolean(4, true);
+			ps.executeUpdate();
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
 				if (ps != null) ps.close();
 			} catch (SQLException sqle) {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());

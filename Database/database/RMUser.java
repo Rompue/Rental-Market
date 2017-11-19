@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class RMUser {
 	
 	private int userID;
@@ -65,4 +68,51 @@ public class RMUser {
 		return image;
 	}
 	
+	void addRating(boolean positiveRating) {
+		// Updates number of ratings
+		if (positiveRating) ++positiveRatings;
+		else ++negativeRatings;
+		++totalRatings;
+		
+		// Updates ratings in database
+		PreparedStatement ps = null;		
+		try {
+			// Completes this request
+			ps = RMDatabase.conn.prepareStatement("UPDATE Person SET positiveRatings=?, negativeRatings=?, totalRatings=? WHERE userID=?;");
+			ps.setInt(1, positiveRatings);
+			ps.setInt(2, negativeRatings);
+			ps.setInt(3, totalRatings);
+			ps.setInt(4, userID);
+			ps.executeUpdate();
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
+	
+	public void updateProfilePicture(String url) {
+		this.image = url;
+		
+		// Updates image in database
+		PreparedStatement ps = null;		
+		try {
+			// Completes this request
+			ps = RMDatabase.conn.prepareStatement("UPDATE Person SET image=? WHERE userID=?;");
+			ps.setString(1, url);
+			ps.executeUpdate();
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
 }
