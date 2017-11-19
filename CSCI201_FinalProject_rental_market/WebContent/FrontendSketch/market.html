@@ -189,22 +189,35 @@
             <p>$2 need before 10/28 return before 10/31</p>
             <hr>
 
-            <div class="panel">
-                  <div class="panel-heading">
-                    <!-- <img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px"> -->
-                    <span>Chatting with the user</span>
-                  </div>
-                  <div class="panel-body">
-                    <div class="input-group">
-                      <input type="text" class="form-control">
-                      <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Send</button>
-                      </div>
-                    </div>
-                  </div>
-            </div>
           </div>
+      <div class="panel-body">
+                  
+          </div>
+          <div id = "sendRequestError"></div> 
+          <div class="panel">
+            <div class="panel-heading">
+              <span><b>Leave a Comment</b></span>
+            </div>
+            <div id = "postCommentSec" class="panel-body">
+
+          </div>
+            <table>
+              <tr>
+                <th>Request Received</th>
+              </tr>
+              <tr>
+                <td>
+                  Received From: Name<br>
+                  <div class="btn-group">
+                    <button class="btn btn-default" type="button" onclick = "acceptPostRequest('<%= post.getPostID() %>', '<%= rmRequest.getRequestID() %>', '<%= RMDatabase.getUserForID(rmRequest.getLenderID()).getEmail() %>')">Accept</button>
+                    <button class="btn btn-default" type="button" onclick = "deleteMarketPost('<%= post.getPostID() %>')">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </table>
+      </div>
   </div>
+
 
 </div>
 

@@ -23,3 +23,7 @@ table {
 	height: 400px;
 	overflow: auto;
 }
+textarea {
+	display: block;
+	resize: none;
+}
