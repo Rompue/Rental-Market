@@ -45,12 +45,20 @@
   		  			document.getElementById("newpostnotify").innerHTML = xhttp.responseText;
   		  		}
   			}
-  			else if(event.data = "New Request") {
+  			else if(event.data == "New Request") {
   				var xhttp = new XMLHttpRequest();
   		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Request", false);
   		  		xhttp.send();
   		  		if(xhttp.responseText.trim().length > 0){
   		  			document.getElementById("newrequestnotify").innerHTML = xhttp.responseText;
+  		  		}
+  			}
+  			else if(event.data == "New Post Comment") {
+  				var xhttp = new XMLHttpRequest();
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Post Comment", false);
+  		  		xhttp.send();
+  		  		if(xhttp.responseText.trim().length > 0){
+  		  			document.getElementById("newpostcommentnotify").innerHTML = xhttp.responseText;
   		  		}
   			}
   		}
@@ -134,6 +142,7 @@
     		switchHightlight();
 	}
     function showDetail(div) {
+    		document.getElementById("newpostcommentnotify").innerHTML = "";
     		document.getElementById("newpostnotify").innerHTML = "";
     		var xhttp = new XMLHttpRequest();
   		xhttp.open("post", "marketPostDetail.jsp?postID=" + div.id, false);
@@ -152,6 +161,7 @@
     function showPostDetail() {
     		document.getElementById("marketplaceHead").innerHTML = "Market";
     		document.getElementById("newpostnotify").innerHTML = "";
+    		document.getElementById("newpostcommentnotify").innerHTML = "";
     		addPostList();
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "marketPostDetail.jsp?postID=-1", false);
@@ -179,7 +189,20 @@
       	loadedRequest = false;
       	switchHightlight();
     }
-
+	function updatePostComment(postID, userID, userEmail) {
+		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "updatePostComment.jsp?postID=" + postID + "&userID=" + userID + "&message=" + document.getElementById("userComment").value, false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			document.getElementById("postCommentSec").innerHTML = xhttp.responseText;
+  			socket.send("ActionE" + userEmail);
+  			return false;
+  		}
+  		else {
+  			document.getElementById("userComment").value = "Please Enter a Comment";
+  			return false;
+  		}
+	}
     // This will change the highlights depending on the content loaded
     function switchHightlight() {
       if (loadedProfile) {
@@ -231,6 +254,9 @@
     						</tr>
     						<tr>
     							<td id = "newrequestnotify"></td>
+    						</tr>
+    						<tr>
+    							<td id = "newpostcommentnotify"></td>
     						</tr>
     					</tbody>
     				</table>
