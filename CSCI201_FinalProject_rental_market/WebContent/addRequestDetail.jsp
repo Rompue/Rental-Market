@@ -44,13 +44,14 @@
         		<div class="panel-heading">
 <%
 				String statusStr = "";
+				RMUser otherUser = null;
 				if(rmRequest.getBorrowerID() == user.getUserID()) {
-					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
-					statusStr += "[Borrowed From] " + lender.getFullName();
+					otherUser = RMDatabase.getUserForID(rmRequest.getLenderID());
+					statusStr += "[Borrowed From] " + otherUser.getFullName();
 				}
 				if(rmRequest.getLenderID() == user.getUserID()) {
-					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
-					statusStr += "[Lend To] " + borrower.getFullName();
+					otherUser = RMDatabase.getUserForID(rmRequest.getBorrowerID());
+					statusStr += "[Lend To] " + otherUser.getFullName();
 				}
 %>
             		<span>[Completed] <%= statusStr %></span>
@@ -66,23 +67,28 @@
               	<hr>
               	<div class="panel">
                 		<div class="panel-heading">
-                			<img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-                			<span>Chatting with Username</span>
+                			<span><b>Leave a Comment</b></span>
                 		</div>
-                		<div class="panel-body">
-                    		<span class="well well-sm message">
-                    			<span>Hi, I'm Kun.</span>
+                		<div id = "requestCommentSec" class="panel-body">
+<%
+					ArrayList<RMChatMessage> comments = rmRequest.getComments();
+					for(RMChatMessage comment : comments) {
+%>
+						<span class="well well-sm message">
+							<img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
+							<span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> : </span><br>
+                    			<span><%= comment.getMessage() %></span>
                     		</span><br>
-                    		<span class="well well-sm message">
-                        		<span>I can lend my TI84 to you tomorrow.</span>
-                      	</span>
-                      	<div class="input-group">
-                        		<input type="text" class="form-control">
-                        		<div class="input-group-btn">
-                          		<button class="btn btn-default" type="submit">Send</button>
-                        		</div>
-                      	</div>
-              		</div>
+<%
+					}
+%>
+					</div>
+					<div class="input-group">
+                        	<input id = "userComment" name = "userComment" type="text" class="form-control">
+                        	<div class="btn-group">
+                        		<button class="btn btn-default" type="submit" onclick = "updateRequestComment('<%= rmRequest.getRequestID() %>', '<%= user.getUserID() %>', '<%= otherUser.getEmail() %>')">Send</button>
+          				</div>
+                     </div>
               	</div>
             	</div>
       </div>
@@ -94,13 +100,14 @@
         		<div class="panel-heading">
 <%
 				String statusStr = "";
+				RMUser otherUser = null;
 				if(rmRequest.getBorrowerID() == user.getUserID()) {
-					RMUser lender = RMDatabase.getUserForID(rmRequest.getLenderID());
-					statusStr += "[Borrowed From] " + lender.getFullName();
+					otherUser = RMDatabase.getUserForID(rmRequest.getLenderID());
+					statusStr += "[Borrowed From] " + otherUser.getFullName();
 				}
 				if(rmRequest.getLenderID() == user.getUserID()) {
-					RMUser borrower = RMDatabase.getUserForID(rmRequest.getBorrowerID());
-					statusStr += "[Lend To] " + borrower.getFullName();
+					otherUser = RMDatabase.getUserForID(rmRequest.getBorrowerID());
+					statusStr += "[Lend To] " + otherUser.getFullName();
 				}
 %>
             		<span>[Ongoing] <%= statusStr %></span>
@@ -116,23 +123,28 @@
               	<hr>
               	<div class="panel">
                 		<div class="panel-heading">
-                			<img src="https://unsplash.it/20/20" class="img-circle" alt="Profile image" width="20px" height="20px">
-                			<span>Chatting with Username</span>
+                			<span><b>Leave a Comment</b></span>
                 		</div>
-                		<div class="panel-body">
-                    		<span class="well well-sm message">
-                    			<span>Hi, I'm Kun.</span>
+                		<div id = "requestCommentSec" class="panel-body">
+<%
+					ArrayList<RMChatMessage> comments = rmRequest.getComments();
+					for(RMChatMessage comment : comments) {
+%>
+						<span class="well well-sm message">
+							<img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
+							<span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> : </span><br>
+                    			<span><%= comment.getMessage() %></span>
                     		</span><br>
-                    		<span class="well well-sm message">
-                        		<span>I can lend my TI84 to you tomorrow.</span>
-                      	</span>
-                      	<div class="input-group">
-                        		<input type="text" class="form-control">
-                        		<div class="input-group-btn">
-                          		<button class="btn btn-default" type="submit">Send</button>
-                        		</div>
-                      	</div>
-              		</div>
+<%
+					}
+%>
+					</div>
+					<div class="input-group">
+                        	<input id = "userComment" name = "userComment" type="text" class="form-control">
+                        	<div class="btn-group">
+                        		<button class="btn btn-default" type="submit" onclick = "updateRequestComment('<%= rmRequest.getRequestID() %>', '<%= user.getUserID() %>', '<%= otherUser.getEmail() %>')">Send</button>
+          				</div>
+                     </div>
               	</div>
             	</div>
       </div>

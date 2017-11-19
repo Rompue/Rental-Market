@@ -32,7 +32,7 @@
         socket.close();
     };
   	function connectToServer() {
-  		socket = new WebSocket("ws://localhost:8080/CSCI201_FinalProject_rental_market/mks");
+  		socket = new WebSocket("ws://localhost:8080/Project/mks");
   		socket.onopen = function(event) {
   			socket.send("ActionA" + document.getElementById("usernameheader").innerHTML);
   		}
@@ -61,9 +61,17 @@
   		  			document.getElementById("newpostcommentnotify").innerHTML = xhttp.responseText;
   		  		}
   			}
+  			else if(event.data == "New Request Comment") {
+  				var xhttp = new XMLHttpRequest();
+  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Request Comment", false);
+  		  		xhttp.send();
+  		  		if(xhttp.responseText.trim().length > 0){
+  		  			document.getElementById("newrequestcommentnotify").innerHTML = xhttp.responseText;
+  		  		}
+  			}
   		}
   		socket.onclose = function(event) {
-
+  			
   		}
   	}
     function addImage() {
@@ -95,6 +103,7 @@
 	}
     function requestSetting() {
     		document.getElementById("newrequestnotify").innerHTML = "";
+    		document.getElementById("newrequestcommentnotify").innerHTML = "";
     		document.getElementById("marketplaceHead").innerHTML = "Requests";
     		addRequestList();
     		showRequestRight();
@@ -116,6 +125,7 @@
 	}
     function showRequestDetail(div) {
     		document.getElementById("newrequestnotify").innerHTML = "";
+    		document.getElementById("newrequestcommentnotify").innerHTML = "";
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("post", "addRequestDetail.jsp?requestID=" + div.id, false);
 		xhttp.send();
@@ -194,8 +204,24 @@
   		xhttp.open("post", "updatePostComment.jsp?postID=" + postID + "&userID=" + userID + "&message=" + document.getElementById("userComment").value, false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
+  			document.getElementById("userComment").value = "";
   			document.getElementById("postCommentSec").innerHTML = xhttp.responseText;
   			socket.send("ActionE" + userEmail);
+  			return false;
+  		}
+  		else {
+  			document.getElementById("userComment").value = "Please Enter a Comment";
+  			return false;
+  		}
+	}
+	function updateRequestComment(requestID, userID, userEmail) {
+		var xhttp = new XMLHttpRequest();
+  		xhttp.open("post", "updateRequestComment.jsp?requestID=" + requestID + "&userID=" + userID + "&message=" + document.getElementById("userComment").value, false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			document.getElementById("userComment").value = "";
+  			document.getElementById("requestCommentSec").innerHTML = xhttp.responseText;
+  			socket.send("ActionF" + userEmail);
   			return false;
   		}
   		else {
@@ -257,6 +283,9 @@
     						</tr>
     						<tr>
     							<td id = "newpostcommentnotify"></td>
+    						</tr>
+    						<tr>
+    							<td id = "newrequestcommentnotify"></td>
     						</tr>
     					</tbody>
     				</table>
