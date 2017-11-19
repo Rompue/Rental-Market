@@ -32,7 +32,7 @@
         socket.close();
     };
   	function connectToServer() {
-  		socket = new WebSocket("ws://localhost:8080/Project/mks");
+  		socket = new WebSocket("ws://localhost:8080/CSCI201_FinalProject_rental_market/mks");
   		socket.onopen = function(event) {
   			socket.send("ActionA" + document.getElementById("usernameheader").innerHTML);
   		}

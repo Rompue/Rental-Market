@@ -32,11 +32,17 @@
 				ArrayList<RMChatMessage> comments = rmRequest.getComments();
 				for(RMChatMessage comment : comments) {
 %>
-					<span class="well well-sm message">
-						<img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
-						<span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> : </span><br>
-	                    	<span><%= comment.getMessage() %></span>
-	                </span><br>
+					<div class="panel">
+                        <div class="panel-heading">
+                          <img src="<%= RMDatabase.getUserForID(comment.getUserID()).getImage() %>" class="img-circle" alt="Profile image" width="20px" height="20px">
+                          <span><%= RMDatabase.getUserForID(comment.getUserID()).getFullName() %> :</span>
+                        </div>
+                        <div class="panel-body">
+                          <span class="well well-sm message">
+                            <span><%= comment.getMessage() %></span>
+                          </span><br>
+                        </div>
+                  </div>
 <%
 				}
 			} catch (RMMakeCommentException rmmce) {
