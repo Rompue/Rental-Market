@@ -154,5 +154,92 @@ public class RMPost {
 				System.out.println("sqle closing stuff: " + sqle.getMessage());
 			}
 		}
+		
+		RMDatabase.sendNotificationToUser(userID, "Someone commented on your post.");
+	}
+	
+	public void deletePost() {
+		PreparedStatement ps = null;
+		
+		try {
+			// Deletes this post
+			ps = RMDatabase.conn.prepareStatement("UPDATE Post SET deleted=? WHERE postID=?;");
+			ps.setBoolean(1, true);
+			ps.setInt(2, postID);
+			ps.executeUpdate();
+			this.deleted = true;
+			ps.close();
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
+	
+	public ArrayList<RMRequest> getRequests() {
+		ArrayList<RMRequest> requests = new ArrayList<RMRequest>();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		// Gets all requests that are linked to this post
+		try {
+			ps = RMDatabase.conn.prepareStatement("SELECT * FROM Request WHERE postID=? AND deleted=?;");
+			ps.setInt(1, postID);
+			ps.setBoolean(2, false);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				int requestID = rs.getInt("requestID");
+				String itemName = rs.getString("itemName");
+				Date requestDate = rs.getDate("requestDate");
+				Date dueDate = rs.getDate("dueDate");
+				boolean completed = rs.getBoolean("completed");
+				boolean deleted = rs.getBoolean("deleted");
+				int rating = rs.getInt("rating");
+				int borrowerID = rs.getInt("borrowerID");
+				int lenderID = rs.getInt("lenderID");
+				
+				// Adds the request to the array
+				requests.add(new RMRequest(requestID, itemName, requestDate, dueDate, completed, deleted, rating, borrowerID, lenderID, postID));
+			}
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+		
+		return requests;
+	}
+	
+	void completePost() {
+		PreparedStatement ps = null;
+		
+		try {
+			// Deletes this post
+			ps = RMDatabase.conn.prepareStatement("UPDATE Post SET completed=? WHERE postID=?;");
+			ps.setBoolean(1, true);
+			ps.setInt(2, postID);
+			ps.executeUpdate();
+			this.deleted = true;
+			ps.close();
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
 	}
 }
