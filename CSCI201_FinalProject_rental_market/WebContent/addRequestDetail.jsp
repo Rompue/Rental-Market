@@ -122,16 +122,18 @@
 <%
 				if(rmRequest.getLenderID() == user.getUserID()) {
 %>
-              		<div class="btn-group">
-              			Positive Experience <input type = "checkbox" id = "positiveCheckBox" value = "true" /><br>
-                		<button class="btn btn-default" type="button" onclick = "rateRequest('<%= rmRequest.getRequestID() %>', '<%= otherUser.getEmail() %>')">Complete Request</button>
-          				<button class="btn btn-default" type="button" onclick = "deleteRequest('<%= rmRequest.getRequestID() %>', '<%= otherUser.getEmail() %>')">Delete Request</button>
+              		<div class="btn-group" id="rateReq">
+              			<div id="complete">
+              				<button class="btn btn-default" type="button" onclick = "rateRequest('<%= rmRequest.getRequestID() %>', '<%= otherUser.getEmail() %>')">Complete Request</button>
+              			</div>
+              			<div id="positiveExp">
+              				Positive Experience <input type = "checkbox" id = "positiveCheckBox" value = "true" />
+              			</div>
           			</div>
-          			<!--
+          			
               		<div class="btn-group">
                 			<button class="btn btn-default" type="button" onclick = "deleteRequest('<%= rmRequest.getRequestID() %>', '<%= otherUser.getEmail() %>')">Delete Request</button>
           			</div>
-          			-->
 <%			
 				}
 %>
