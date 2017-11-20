@@ -20,107 +20,17 @@
     var loadedProfile = false;
     var loadedMarket = true;
     var loadedRequest = false;
+    var projectPath;
   	function populate() {
-  		addImage();
-  		addUserName();
-  		addPostList();
-  		showPostDetail();
-  		connectToServer();
-    }
-  	window.onbeforeunload = function () {
-  		socket.send("ActionB" + document.getElementById("usernameheader").innerHTML);
-        socket.close();
-    };
-  	function connectToServer() {
-  		//socket = new WebSocket("ws://localhost:8080/Project/mks");
-      socket = new WebSocket("ws://localhost:8080/CSCI201_FinalProject_rental_market/mks");
-  		socket.onopen = function(event) {
-  			socket.send("ActionA" + document.getElementById("usernameheader").innerHTML);
-  		}
-  		socket.onmessage = function(event) {
-  			if(event.data == "Post Update") {
-  				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Post Update", false);
-  		  		xhttp.send();
-  		  		if(xhttp.responseText.trim().length > 0){
-  		  			document.getElementById("newpostnotify").innerHTML = xhttp.responseText;
-  		  		}
-  		  		if(loadedMarket == true) {
-  		  			addPostList();
-  		  			showPostDetail();
-  		  		}
-  			}
-  			else if(event.data == "Request Update") {
-  				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Request Update", false);
-  		  		xhttp.send();
-  		  		if(xhttp.responseText.trim().length > 0){
-  		  			document.getElementById("newrequestnotify").innerHTML = xhttp.responseText;
-  		  		}
-  		  		if(loadedRequest == true) {
-  		  			addRequestList();
-  	    				showRequestRight();
-		  		}
-  			}
-  			else if(event.data == "New Post Comment") {
-  				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Post Comment", false);
-  		  		xhttp.send();
-  		  		if(xhttp.responseText.trim().length > 0){
-  		  			document.getElementById("newpostcommentnotify").innerHTML = xhttp.responseText;
-  		  		}
-  			}
-  			else if(event.data == "New Request Comment") {
-  				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=Request Comment", false);
-  		  		xhttp.send();
-  		  		if(xhttp.responseText.trim().length > 0){
-  		  			document.getElementById("newrequestcommentnotify").innerHTML = xhttp.responseText;
-  		  		}
-  			}
-  			else if(event.data == "New Post Request") {
-  				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Post Request", false);
-  		  		xhttp.send();
-  		  		if(xhttp.responseText.trim().length > 0){
-  		  			document.getElementById("newpostrequestnotify").innerHTML = xhttp.responseText;
-  		  		}
-  			}
-  			else if(event.data == "New Rating") {
-  				var xhttp = new XMLHttpRequest();
-  		  		xhttp.open("post", "marketNotification.jsp?notifyType=New Rating", false);
-  		  		xhttp.send();
-  		  		if(xhttp.responseText.trim().length > 0){
-  		  			if(loadedProfile == true) {
-  		  				showProfileDetail()
-	  				}
-  		  			document.getElementById("newratingnotify").innerHTML = xhttp.responseText;
-  		  		}
-  			}
-  		}
-  		socket.onclose = function(event) {
 
-  		}
-  	}
-    function addImage() {
-    		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "addImage.jsp", false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("profileimage").innerHTML = xhttp.responseText;
-  		}
+  		addPostList();
+
     }
-    function addUserName() {
-  		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "addUsername.jsp", false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("UserNameField").innerHTML = xhttp.responseText;
-  		}
-	}
+
+
     function addPostList() {
   		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "marketPostList.jsp", false);
+  		xhttp.open("post", "guestPostList.jsp", false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
   			document.getElementById("currRequest").innerHTML = xhttp.responseText;
@@ -129,239 +39,7 @@
   			document.getElementById("currRequest").innerHTML = "";
   		}
 	}
-    function requestSetting() {
-    		document.getElementById("newrequestnotify").innerHTML = "";
-    		document.getElementById("newrequestcommentnotify").innerHTML = "";
-    		document.getElementById("marketplaceHead").innerHTML = "Requests";
-    		addRequestList();
-    		showRequestRight();
-    		loadedProfile = false;
-        loadedMarket = false;
-        loadedRequest = true;
-        switchHightlight();
-    }
-    function addRequestList() {
-  		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "addRequestList.jsp", false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("currRequest").innerHTML = xhttp.responseText;
-  		}
-  		else {
-  			document.getElementById("currRequest").innerHTML = "";
-  		}
-	}
-    function showRequestDetail(div) {
-    		document.getElementById("newrequestnotify").innerHTML = "";
-    		document.getElementById("newrequestcommentnotify").innerHTML = "";
-		var xhttp = new XMLHttpRequest();
-		xhttp.open("post", "addRequestDetail.jsp?requestID=" + div.id, false);
-		xhttp.send();
-		if(xhttp.responseText.trim().length > 0){
-			document.getElementById("col7").innerHTML = xhttp.responseText;
-		}
-		else {
-			document.getElementById("col7").innerHTML = "";
-		}
-	}
-    function showRequestRight() {
-		var xhttp = new XMLHttpRequest();
-		xhttp.open("post", "addRequestDetail.jsp?requestID=-1", false);
-		xhttp.send();
-		if(xhttp.responseText.trim().length > 0){
-			document.getElementById("col7").innerHTML = xhttp.responseText;
-		}
-		else {
-  			document.getElementById("col7").innerHTML = "";
-  		}
-		loadedProfile = false;
-    		loadedMarket = true;
-    		loadedRequest = false;
-    		switchHightlight();
-	}
-    function showDetail(div) {
-    		document.getElementById("newpostcommentnotify").innerHTML = "";
-    		document.getElementById("newpostnotify").innerHTML = "";
-    		document.getElementById("newpostrequestnotify").innerHTML = "";
-    		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "marketPostDetail.jsp?postID=" + div.id, false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("col7").innerHTML = xhttp.responseText;
-  		}
-  		else {
-  			document.getElementById("col7").innerHTML = "";
-  		}
-  		loadedProfile = false;
-        loadedMarket = true;
-        loadedRequest = false;
-        switchHightlight();
-    }
-    function showPostDetail() {
-    		document.getElementById("marketplaceHead").innerHTML = "Market";
-    		document.getElementById("newpostnotify").innerHTML = "";
-    		document.getElementById("newpostcommentnotify").innerHTML = "";
-    		document.getElementById("newpostrequestnotify").innerHTML = "";
-    		addPostList();
-		var xhttp = new XMLHttpRequest();
-		xhttp.open("post", "marketPostDetail.jsp?postID=-1", false);
-		xhttp.send();
-		if(xhttp.responseText.trim().length > 0){
-			document.getElementById("col7").innerHTML = xhttp.responseText;
-		}
-		else {
-  			document.getElementById("col7").innerHTML = "";
-  		}
-		loadedProfile = false;
-    		loadedMarket = true;
-    		loadedRequest = false;
-    		switchHightlight();
-	}
-    function showProfileDetail() {
-    		document.getElementById("newratingnotify").innerHTML = "";
-    		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "profileDetail.jsp", false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("col7").innerHTML = xhttp.responseText;
-  		}
-      	loadedProfile = true;
-      	loadedMarket = false;
-      	loadedRequest = false;
-      	switchHightlight();
-    }
-	function updatePostComment(postID, userID, userEmail) {
-		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "updatePostComment.jsp?postID=" + postID + "&userID=" + userID + "&message=" + document.getElementById("userComment").value, false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("userComment").value = "";
-  			document.getElementById("postCommentSec").innerHTML = xhttp.responseText;
-  			socket.send("ActionE" + userEmail);
-  			return false;
-  		}
-  		else {
-  			document.getElementById("userComment").value = "Please Enter a Comment";
-  			return false;
-  		}
-	}
-	function updateRequestComment(requestID, userID, userEmail) {
-		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "updateRequestComment.jsp?requestID=" + requestID + "&userID=" + userID + "&message=" + document.getElementById("userComment").value, false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("userComment").value = "";
-  			document.getElementById("requestCommentSec").innerHTML = xhttp.responseText;
-  			socket.send("ActionF" + userEmail);
-  			return false;
-  		}
-  		else {
-  			document.getElementById("userComment").value = "Please Enter a Comment";
-  			return false;
-  		}
-	}
-	function acceptPostRequest(postID, requestID, userEmail) {
-		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "acceptPostRequest.jsp?postID=" + postID + "&requestID=" + requestID, false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("acceptRequestError").innerHTML = xhttp.responseText;
-  		}
-  		else {
-  			socket.send("ActionD");
-  			socket.send("ActionC" + userEmail);
-  			xhttp.open("post", "marketNotification.jsp?notifyType=New Request", false);
-		  	xhttp.send();
-		  	if(xhttp.responseText.trim().length > 0){
-		  		document.getElementById("newrequestnotify").innerHTML = xhttp.responseText;
-		  	}
-  			else if(loadedRequest == true){
-  				addRequestList();
-  			}
-  		}
-	}
-	function sendRequestToPost(postID, userID, userEmail) {
-		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "sendPostRequest.jsp?postID=" + postID + "&userID=" + userID, false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			document.getElementById("sendRequestError").innerHTML = xhttp.responseText;
-  		}
-  		else {
-  			socket.send("ActionG" + userEmail);
-  			if(loadedMarket == true) {
-  				addPostList();
-  		  		showPostDetail();
-  			}
-  		}
-	}
-	function deleteMarketPost(postID) {
-		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "deletePostFromMarket.jsp?postID=" + postID, false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
 
-  		}
-  		else {
-  			socket.send("ActionD");
-  		}
-	}
-	function deleteRequest(requestID, userEmail) {
-		var xhttp = new XMLHttpRequest();
-  		xhttp.open("post", "deleteRequest.jsp?requestID=" + requestID, false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-
-  		}
-  		else {
-  			socket.send("ActionC" + userEmail);
-  			if(loadedRequest == true) {
-		  		addRequestList();
-	    			showRequestRight();
-	  		}
-  		}
-	}
-	function rateRequest(requestID, userEmail) {
-		var xhttp = new XMLHttpRequest();
-		if(document.getElementById("positiveCheckBox").checked) {
-			xhttp.open("post", "completeRequest.jsp?requestID=" + requestID + "&positiveRating=true", false);
-		}
-		else {
-			xhttp.open("post", "completeRequest.jsp?requestID=" + requestID + "&positiveRating=false", false);
-		}
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-
-  		}
-  		else {
-  			socket.send("ActionC" + userEmail);
-  			socket.send("ActionH" + userEmail);
-  			if(loadedRequest == true) {
-		  		addRequestList();
-	    			showRequestRight();
-	  		}
-  		}
-	}
-    // This will change the highlights depending on the content loaded
-    function switchHightlight() {
-      if (loadedProfile) {
-        document.getElementById("profile").className = "active";
-        document.getElementById("market").className = "";
-        document.getElementById("request").className = "";
-      }
-      else if (loadedMarket) {
-        document.getElementById("profile").className = "";
-        document.getElementById("market").className = "active";
-        document.getElementById("request").className = "";            }
-      else if (loadedRequest) {
-        document.getElementById("profile").className = "";
-        document.getElementById("market").className = "";
-        document.getElementById("request").className = "active";
-      }
-      document.getElementById("newRequestPButton").onclick = function() {
-    	  	window.location.href = "newrequest.html";
-      };
-    }
    </script>
 </head>
 
@@ -370,7 +48,7 @@
   		<div class="col-sm-2" id="col2">
     			<div id = "profileimage" class="profileimage">
             <!-- TODO -->
-            <img src="" class="img-circle" alt="Profile image" width="100px" height="100px">
+            <img id="DefaultProfileImage" src="https://dl.dropboxusercontent.com/s/qomzwb40imxwkap/DefaultProfile.png?dl=0" class="img-circle" alt="Profile image" width="100px" height="100px">
     			</div>
     			<div id = "UserNameField">
             <h3 class="username">Guest</h3>
@@ -382,7 +60,7 @@
       				<!-- <li id = "request" style="color=gray"><a href="#">Requests</a></li> -->
     				</ul><br>
     				<button id = "newRequestPButton" type="button" class="btn btn-default btn-block disabled">New Request</button>
-            <h6>You cannot post request as a guest.</h6>
+            <h5>You cannot post request as a guest.</h5>
             <!-- TODO:  -->
             <button id = "newRequestPButton" type="button" class="btn btn-primary btn-block">Sign up now!</button>
     			</div>
