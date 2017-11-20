@@ -369,46 +369,24 @@
 	<div class="mainpage">
   		<div class="col-sm-2" id="col2">
     			<div id = "profileimage" class="profileimage">
+            <!-- TODO -->
+            <img src="" class="img-circle" alt="Profile image" width="100px" height="100px">
     			</div>
     			<div id = "UserNameField">
+            <h3 class="username">Guest</h3>
     			</div>
     			<div id = "options">
     				<ul class="nav nav-pills nav-stacked">
-      				<li id = "profile"><a href = "#" class="shellLink" onclick = "showProfileDetail()">Profile</a></li>
+      				<!-- <li id = "profile" style="color=gray"><a href="#">Profile</a></li> -->
       				<li id = "market" class="active"><a href="#" class="shellLink" onclick = "showPostDetail()">Market</a></li>
-      				<li id = "request"><a href="#" class="shellLink" onclick = "requestSetting()">Requests</a></li>
+      				<!-- <li id = "request" style="color=gray"><a href="#">Requests</a></li> -->
     				</ul><br>
-    				<button id = "newRequestPButton" type="button" class="btn btn-default btn-block">New Request</button>
+    				<button id = "newRequestPButton" type="button" class="btn btn-default btn-block disabled">New Request</button>
+            <h6>You cannot post request as a guest.</h6>
+            <!-- TODO:  -->
+            <button id = "newRequestPButton" type="button" class="btn btn-primary btn-block">Sign up now!</button>
     			</div>
-    			<div id = "notification">
-    				<table id = "notify" class = "table table-border">
-    					<thead>
-    						<tr>
-    							<th>Notifications</th>
-    						</tr>
-    					</thead>
-    					<tbody>
-    						<tr>
-    							<td id = "newpostnotify"></td>
-    						</tr>
-    						<tr>
-    							<td id = "newrequestnotify"></td>
-    						</tr>
-    						<tr>
-    							<td id = "newpostcommentnotify"></td>
-    						</tr>
-    						<tr>
-    							<td id = "newrequestcommentnotify"></td>
-    						</tr>
-    						<tr>
-    							<td id = "newpostrequestnotify"></td>
-    						</tr>
-    						<tr>
-    							<td id = "newratingnotify"></td>
-    						</tr>
-    					</tbody>
-    				</table>
-    			</div>
+
   		</div>
 
   <!-- Dynamically create these cells -->
