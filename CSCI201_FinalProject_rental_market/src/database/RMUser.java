@@ -57,7 +57,9 @@ public class RMUser {
 		if(totalRatings == 0) {
 			return 0;
 		}
-		return (positiveRatings / totalRatings) * 100;
+		double percentage = (double)positiveRatings/totalRatings;
+		percentage *= 100;
+		return (int)percentage;
 	}
 	
 	public String getFullName() {
