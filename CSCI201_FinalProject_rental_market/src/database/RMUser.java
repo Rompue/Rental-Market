@@ -106,6 +106,7 @@ public class RMUser {
 			// Completes this request
 			ps = RMDatabase.conn.prepareStatement("UPDATE Person SET image=? WHERE userID=?;");
 			ps.setString(1, url);
+			ps.setInt(2, userID);
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());

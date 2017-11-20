@@ -344,6 +344,14 @@
 	  		}
   		}
 	}
+  function getProfilePicLink() {
+      var xhttp = new XMLHttpRequest();
+      var url = prompt("Please enter an image url link.");
+      //console.log(url);
+      if (url != null) {
+        xhttp.open("post", "setImage.jsp?picUrl=" + url, false);
+      }    
+    }
     // This will change the highlights depending on the content loaded
     function switchHightlight() {
       if (loadedProfile) {

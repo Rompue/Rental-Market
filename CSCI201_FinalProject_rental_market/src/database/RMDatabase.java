@@ -23,7 +23,8 @@ public class RMDatabase {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				// Connects to database
-				conn = DriverManager.getConnection("jdbc:mysql://localhost/RentalMarketplace?user=root&password=Albertcollege@2017&useSSL=false");
+				//conn = DriverManager.getConnection("jdbc:mysql://localhost/RentalMarketplace?user=root&password=Albertcollege@2017&useSSL=false");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/RentalMarketplace?user=root&password=rootroot&useSSL=false");
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
