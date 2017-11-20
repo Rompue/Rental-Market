@@ -28,7 +28,18 @@
   		}
   	}
   	function connectToServer() {
-		socket = new WebSocket("ws://localhost:8080/CSCI201_FinalProject_rental_market/mks");
+  		var xhttp = new XMLHttpRequest();
+  		xhttp.open("get", "projectPath.jsp", false);
+  		xhttp.send();
+  		if(xhttp.responseText.trim().length > 0){
+  			var projectPath = xhttp.responseText;
+  		}
+  		
+  		
+  		
+  		
+  		
+      socket = new WebSocket("ws://localhost:8080" + projectPath + "/mks");
 		socket.onopen = function(event) {
 			socket.send("ActionA" + document.getElementById("forwebsocket").innerHTML);
 		}
