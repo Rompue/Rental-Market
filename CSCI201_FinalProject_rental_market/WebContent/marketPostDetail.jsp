@@ -41,11 +41,11 @@
 					}
 					if(sameUser == 1) {
 %>
-						<!--
+						
           				<div class="btn-group">
                         		<button class="btn btn-default" type="button" onclick = "deleteMarketPost('<%= post.getPostID() %>')">Delete</button>
           				</div>
-          				-->
+          				
 						<table>
 							<tr>
 								<th>Request Received</th>
@@ -57,11 +57,7 @@
 							<tr>
 								<td>
 									Received From: <%= (RMDatabase.getUserForID(rmRequest.getLenderID()).getFullName()) %><br>
-									<!--<button class="btn btn-default" type="button" onclick = "acceptPostRequest('<%= post.getPostID() %>', '<%= rmRequest.getRequestID() %>', '<%= RMDatabase.getUserForID(rmRequest.getLenderID()).getEmail() %>')">Accept</button>-->
-									<div class="btn-group">
-										<button class="btn btn-default" type="button" onclick = "acceptPostRequest('<%= post.getPostID() %>', '<%= rmRequest.getRequestID() %>', '<%= RMDatabase.getUserForID(rmRequest.getLenderID()).getEmail() %>')">Accept</button>
-										<button class="btn btn-default" type="button" onclick = "deleteMarketPost('<%= post.getPostID() %>')">Delete</button>
-									</div>
+									<button class="btn btn-default" type="button" onclick = "acceptPostRequest('<%= post.getPostID() %>', '<%= rmRequest.getRequestID() %>', '<%= RMDatabase.getUserForID(rmRequest.getLenderID()).getEmail() %>')">Accept</button>
 								</td>
 							</tr>
 <%
