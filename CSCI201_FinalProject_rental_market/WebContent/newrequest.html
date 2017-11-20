@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="styles/newrequest.css" type="text/css">
   <script>
   	var socket;
+  	var projectPath;
   	window.onload = function() {
   		addEmail();
   		connectToServer();
@@ -29,17 +30,12 @@
   	}
   	function connectToServer() {
   		var xhttp = new XMLHttpRequest();
-  		xhttp.open("get", "projectPath.jsp", false);
-  		xhttp.send();
-  		if(xhttp.responseText.trim().length > 0){
-  			var projectPath = xhttp.responseText;
-  		}
-  		
-  		
-  		
-  		
-  		
-      socket = new WebSocket("ws://localhost:8080" + projectPath + "/mks");
+	  	xhttp.open("get", "projectPath.jsp", false);
+	  	xhttp.send();
+	  	if(xhttp.responseText.trim().length > 0){
+	  		projectPath = xhttp.responseText;
+	  	}
+  		socket = new WebSocket("ws://localhost:8080" + projectPath + "/mks");
 		socket.onopen = function(event) {
 			socket.send("ActionA" + document.getElementById("forwebsocket").innerHTML);
 		}

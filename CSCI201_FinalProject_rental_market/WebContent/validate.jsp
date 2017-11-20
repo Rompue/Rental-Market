@@ -8,6 +8,7 @@
 	try {
 		RMUser user = RMDatabase.authenticateUser(username, password);
 		request.getSession().setAttribute("user", user);
+		request.getSession().setMaxInactiveInterval(60000);
 		//request.getSession().setAttribute("name", user.getEmail());
 	} catch (RMAuthenticateUserException rmaue) {
 		if(rmaue.getCode() == 1) {

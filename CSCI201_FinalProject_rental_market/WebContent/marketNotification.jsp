@@ -1,35 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="database.*" %>
+<%@ page import= "java.util.Vector" %>
 <%
-	String notifyType = request.getParameter("notifyType");
-	if(notifyType.equals("Post Update")) {
+	RMUser user = (RMUser)request.getSession().getAttribute("user");
+	Vector<RMNotification> notifications = RMDatabase.getNotificationsForUser(user.getUserID());
+	for(RMNotification notify : notifications) {
+		if(notify.getActive()) {
+			notify.dismissNotification();
 %>
-		<font color = "red"><strong>Post Update on Market</strong></font>
+			<tr>
+    				<td><font color = "red"><strong><%= notify.getText() %></strong></font></td>
+    			</tr>
 <%
-	}
-	if(notifyType.equals("Request Update")) {
-%>
-		<font color = "red"><strong>Request Update Received</strong></font>
-<%
-	}
-	if(notifyType.equals("Post Comment")) {
-%>
-		<font color = "red"><strong>New Comment on Post</strong></font>
-<%
-	}
-	if(notifyType.equals("Request Comment")) {
-%>
-		<font color = "red"><strong>New Comment on Request</strong></font>
-<%
-	}
-	if(notifyType.equals("New Post Request")) {
-%>
-		<font color = "red"><strong>New Post Request Received</strong></font>
-<%
-	}
-	if(notifyType.equals("New Rating")) {
-%>
-		<font color = "red"><strong>New Rating Available</strong></font>
-<%
+		}
 	}
 %>

@@ -5,7 +5,6 @@
 <%
 String path = request.getContextPath();
 
-System.out.println(path);
 %>
 
 ${pageContext.request.contextPath}

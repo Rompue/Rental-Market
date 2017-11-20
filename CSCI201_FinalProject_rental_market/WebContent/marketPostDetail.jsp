@@ -41,54 +41,43 @@
 					}
 					if(sameUser == 1) {
 %>
-
-          				<div class="btn-group">
-                        		<button class="btn btn-danger" type="button" onclick = "deleteMarketPost('<%= post.getPostID() %>')">Delete Request</button>
-          				</div>
-                  <hr/>
-
-						<%-- <table>
-							<tr>
-								<th>Request Received</th>
-							</tr> --%>
-              <div class="panel panel-default">
-                <div class="panel-heading">Request Received</div>
-                <div class="panel-body">
-                    <ul class="list-group">
+						<div class = "btn-group">
+          					<div class="btn-group">
+                        			<button class="btn btn-danger" type="button" onclick = "deleteMarketPost('<%= post.getPostID() %>')">Delete</button>
+          					</div>
+          					<hr>
+          					<div class = "panel panel-default">
+          						<div class = "panel-heading">Request Received</div>
+          							<div class = "panel-body">
+          								<ul class = "list-group">
 <%
-						ArrayList<RMRequest> requests = post.getRequests();
-						for(RMRequest rmRequest : requests) {
+											ArrayList<RMRequest> requests = post.getRequests();
+											for(RMRequest rmRequest : requests) {
 %>
-							<%-- <tr>
-								<td>
-									Received From: <%= (RMDatabase.getUserForID(rmRequest.getLenderID()).getFullName()) %><br> --%>
-                  <li class="list-group-item">
-									<button class="btn btn-default" type="button" onclick = "acceptPostRequest('<%= post.getPostID() %>', '<%= rmRequest.getRequestID() %>', '<%= RMDatabase.getUserForID(rmRequest.getLenderID()).getEmail() %>')">Accept</button>
-                  <span>&nbsp; request from <%= (RMDatabase.getUserForID(rmRequest.getLenderID()).getFullName()) %><span/>
-                  </li>
-								<%-- </td>
-							</tr> --%>
+												<li class = "list-group-item">
+													<button class="btn btn-default" type="button" onclick = "acceptPostRequest('<%= post.getPostID() %>', '<%= rmRequest.getRequestID() %>', '<%= RMDatabase.getUserForID(rmRequest.getLenderID()).getEmail() %>')">Accept</button>
+													<span>&nbsp; Received From: <%= (RMDatabase.getUserForID(rmRequest.getLenderID()).getFullName()) %></span>
+												</li>
 <%
-						}
+											}
 %>
-						<%-- </table> --%>
-            <ul/>
-          </div>
-        </div>
+							</ul>
+							</div>
+							</div>
+						</div>
 						<div id = "acceptRequestError"></div>
 <%
 					}
 					if(sameUser == -1) {
 %>
 						<div class="btn-group">
-                <button class="btn btn-primary" type="button" onclick = "sendRequestToPost('<%= post.getPostID() %>', '<%= currUser.getUserID() %>', '<%= user.getEmail() %>')">Send Request</button>
-    				</div>
-            <hr/>
+                        		<button class="btn btn-default" type="button" onclick = "sendRequestToPost('<%= post.getPostID() %>', '<%= currUser.getUserID() %>', '<%= user.getEmail() %>')">Send Request</button>
+          				</div>
           				<div id = "sendRequestError"></div>
 <%
 					}
 %>
-
+        				
 				<div class="panel">
                 		<div class="panel-heading">
                 			<span><b>Leave a Comment</b></span>
