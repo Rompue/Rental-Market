@@ -20,6 +20,7 @@
     var loadedProfile = false;
     var loadedMarket = true;
     var loadedRequest = false;
+    var projectPath;
   	function populate() {
   		addImage();
   		addUserName();
@@ -37,13 +38,13 @@
   		xhttp.open("get", "projectPath.jsp", false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
-  			var projectPath = xhttp.responseText;
+  			projectPath = xhttp.responseText;
   		}
-  		
-  		
-  		
-  		
-  		
+
+
+
+
+
       socket = new WebSocket("ws://localhost:8080" + projectPath + "/mks");
   		socket.onopen = function(event) {
   			socket.send("ActionA" + document.getElementById("usernameheader").innerHTML);
@@ -110,7 +111,7 @@
   			}
   		}
   		socket.onclose = function(event) {
-  			
+
   		}
   	}
     function addImage() {
@@ -311,7 +312,7 @@
   		xhttp.open("post", "deletePostFromMarket.jsp?postID=" + postID, false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
-  			
+
   		}
   		else {
   			socket.send("ActionD");
@@ -322,7 +323,7 @@
   		xhttp.open("post", "deleteRequest.jsp?requestID=" + requestID, false);
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
-  			
+
   		}
   		else {
   			socket.send("ActionC" + userEmail);
@@ -342,7 +343,7 @@
 		}
   		xhttp.send();
   		if(xhttp.responseText.trim().length > 0){
-  			
+
   		}
   		else {
   			socket.send("ActionC" + userEmail);
