@@ -350,7 +350,7 @@
       //console.log(url);
       if (url != null) {
         xhttp.open("post", "setImage.jsp?picUrl=" + url, false);
-      }    
+      }
     }
     // This will change the highlights depending on the content loaded
     function switchHightlight() {
@@ -368,8 +368,11 @@
         document.getElementById("market").className = "";
         document.getElementById("request").className = "active";
       }
-      document.getElementById("newRequestPButton").onclick = function() {
+      document.getElementById("newRequestButton").onclick = function() {
     	  	window.location.href = "newrequest.html";
+      };
+      document.getElementById("newPostButton").onclick = function() {
+    	  	window.location.href = "newpost.html";
       };
     }
    </script>
@@ -388,7 +391,8 @@
       				<li id = "market" class="active"><a href="#" class="shellLink" onclick = "showPostDetail()">Market</a></li>
       				<li id = "request"><a href="#" class="shellLink" onclick = "requestSetting()">Requests</a></li>
     				</ul><br>
-    				<button id = "newRequestPButton" type="button" class="btn btn-default btn-block">New Request</button>
+    				<button id = "newRequestButton" type="button" class="btn btn-default btn-block">New Request</button>
+            <button id = "newPostButton" type="button" class="btn btn-default btn-block">New Post</button>
     			</div>
     			<div id = "notification">
     				<table id = "notify" class = "table table-border">

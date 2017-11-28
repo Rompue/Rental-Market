@@ -55,25 +55,25 @@
   	}
   	function createRequest() {
   		var xhttp = new XMLHttpRequest();
-  		var specificUser = document.getElementById("username").value;
-  		if(specificUser) {
-  			xhttp.open("post", "createPrivateRequest.jsp?username=" + document.requestForm.username.value + "&itemname=" + document.requestForm.itemname.value + "&returnby=" + document.requestForm.returnby.value, false);
-  			xhttp.send();
-  		}
-  		else {
+  		// var specificUser = document.getElementById("username").value;
+  		// if(specificUser) {
+  		// 	xhttp.open("post", "createPrivateRequest.jsp?username=" + document.requestForm.username.value + "&itemname=" + document.requestForm.itemname.value + "&returnby=" + document.requestForm.returnby.value, false);
+  		// 	xhttp.send();
+  		// }
+  		// else {
   			xhttp.open("post", "createMarketPost.jsp?itemname=" + document.requestForm.itemname.value + "&money=" + document.requestForm.money.value + "&itemDescript=" + document.requestForm.itemDescript.value + "&returnby=" + document.requestForm.returnby.value, false);
   			xhttp.send();
-  		}
+  		// }
 		if(xhttp.responseText.trim().length > 0){
 			document.getElementById("errormessage").innerHTML = xhttp.responseText;
 			return false;
 		}
-		if(specificUser) {
-			socket.send("ActionC" + specificUser);
-		}
-		else {
+		// if(specificUser) {
+		// 	socket.send("ActionC" + specificUser);
+		// }
+		// else {
 			socket.send("ActionD");
-		}
+		// }
 		return true;
   	}
   </script>
@@ -85,17 +85,13 @@
     <div class="col-sm-3">
     </div>
     <div class="col-sm-6">
-      <h1>New Request</h1>
+      <h1>New Post</h1>
       <div id = "userEmail">
       </div>
-      <p id="requestDes"><b>Please tell us descriptions of the request</b></p><br/>
+      <p id="requestDes"><b>Please tell us descriptions of the post</b></p><br/>
 
       <form id = "requestForm" name = "requestForm" class="requestForm" method = "post" action = "market.html" onsubmit = "return createRequest();">
-        <div class="input-group requestInfo">
-          <!--<span class="input-group-addon">Specify a user to send the request to (optional)</span>-->
-          <label>Which user you would like to send a request to: </label>
-          <input id="username" type="text" class="form-control" name="username">
-        </div><br>
+
 
         <div class="input-group requestInfo">
           <!--<span class="input-group-addon">Item Name</span>-->
